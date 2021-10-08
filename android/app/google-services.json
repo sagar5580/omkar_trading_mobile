@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "445386800278",
+    "project_id": "omkartrading-acfcf",
+    "storage_bucket": "omkartrading-acfcf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445386800278:android:2dead6fd5fe5118b5c96b7",
+        "android_client_info": {
+          "package_name": "com.omkartrading"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445386800278-9910af54h1vhb799tn5fpq2orm3ndmi3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYZFcsgIIBpgkeHdEVTt5P74HHX8hTBRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445386800278-9910af54h1vhb799tn5fpq2orm3ndmi3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
