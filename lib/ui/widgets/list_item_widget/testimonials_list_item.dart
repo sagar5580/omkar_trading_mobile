@@ -32,7 +32,7 @@ class _TestimonialsListItemState extends State<TestimonialsListItem> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  networkImage(widget.testimonialsData?.imageUrl?? ""),
+                  networkImage(widget.testimonialsData?.imageUrl ?? ""),
                   SizedBox(
                     width: 20.0,
                   ),
@@ -42,25 +42,16 @@ class _TestimonialsListItemState extends State<TestimonialsListItem> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.testimonialsData?.name?? "",
+                          widget.testimonialsData?.name ?? "",
                           style: Utils.boldTextStyle(
                               color: AppColors.black,
                               fontSize: AppDimens.large_font),
                         ),
-                        // SizedBox(
-                        //   height: 5,
-                        // ),
-                        // Text(
-                        //   "Philadelphia, PA",
-                        //   style: Utils.regularTextStyle(
-                        //       color: AppColors.gray,
-                        //       fontSize: AppDimens.medium_font),
-                        // ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                          "Product: ${widget.testimonialsData?.productData?.name?? ""}",
+                          "Product: ${widget.testimonialsData?.productData?.name ?? ""}",
                           style: Utils.boldTextStyle(
                               color: AppColors.gray,
                               fontSize: AppDimens.medium_font),
@@ -68,7 +59,9 @@ class _TestimonialsListItemState extends State<TestimonialsListItem> {
                         SizedBox(
                           height: 15,
                         ),
-                        Text(widget.testimonialsData?.productData?.description?? "" ,
+                        Text(
+                            widget.testimonialsData?.productData?.description ??
+                                "",
                             style: Utils.boldTextStyle(
                                 height: 1.3,
                                 color: AppColors.gray,

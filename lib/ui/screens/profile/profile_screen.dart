@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:omkar_trading/code/constants/app_string.dart';
 import 'package:omkar_trading/code/constants/color_constant.dart';
 import 'package:omkar_trading/code/constants/image_assets.dart';
@@ -251,16 +252,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       color: AppColors.primary_color,
                     ),
                   )
-                : ListView.builder(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    itemCount: model!.getOrderProductList!.length,
-                    itemBuilder: (context, index) {
-                      ProductData models = model!.getOrderProductList![index];
-                      return MyOrderListItem(
-                        model: models,
-                      );
-                    },
+                : AnimationLimiter(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemCount: model!.getOrderProductList!.length,
+                      itemBuilder: (context, index) {
+                        ProductData models = model!.getOrderProductList![index];
+                        return AnimationConfiguration.staggeredList(
+                          position: index,
+                          duration: const Duration(milliseconds: 375),
+                          child: SlideAnimation(
+                            verticalOffset: 50.0,
+                            child: FadeInAnimation(
+                              child: MyOrderListItem(
+                                model: models,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
           ),
         ],
@@ -279,16 +291,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: AppColors.primary_color,
                   ),
                 )
-              : ListView.builder(
-                  physics: ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: model!.getEarningDataList!.length,
-                  itemBuilder: (context, index) {
-                    EarningData models = model!.getEarningDataList![index];
-                    return EarningListItem(
-                      model: models,
-                    );
-                  },
+              : AnimationLimiter(
+                  child: ListView.builder(
+                    physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: model!.getEarningDataList!.length,
+                    itemBuilder: (context, index) {
+                      EarningData models = model!.getEarningDataList![index];
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 375),
+                        child: SlideAnimation(
+                          child: FadeInAnimation(
+                            child: EarningListItem(
+                              model: models,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
         ),
       ],

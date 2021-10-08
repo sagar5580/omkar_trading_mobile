@@ -18,14 +18,13 @@ class _OurBranchesListItemState extends State<OurBranchesListItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only( left :1,right:1,bottom: 20),
+      margin: const EdgeInsets.only(left: 1, right: 1, bottom: 20),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
               color: AppColors.gray.withOpacity(0.10),
               blurRadius: 5.0,
-              spreadRadius: 1.0
-          ),
+              spreadRadius: 1.0),
         ],
         color: AppColors.white,
         borderRadius: BorderRadius.all(

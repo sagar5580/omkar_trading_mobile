@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:omkar_trading/code/model/testimonials_model.dart';
+import 'package:omkar_trading/code/model/pagination_model.dart';
 
 part 'product_model.g.dart';
 
@@ -7,8 +8,10 @@ part 'product_model.g.dart';
 class ProductResponse {
   @JsonKey(name: "data")
   List<ProductData>? data;
+  @JsonKey(name: "pagination")
+  PaginationResponse? paginationResponse;
 
-  ProductResponse({this.data});
+  ProductResponse({this.data,this.paginationResponse});
 
   factory ProductResponse.fromJson(Map<String, dynamic> json) =>
       _$ProductResponseFromJson(json);

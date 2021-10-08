@@ -1,8 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:omkar_trading/code/constants/service_constants.dart';
 import 'package:omkar_trading/code/model/complains_model.dart';
 import 'package:omkar_trading/code/model/inquiries_model.dart';
@@ -59,5 +54,6 @@ abstract class APIService {
       @Body() NotificationRequest notificationRequest);
 
   @DELETE('${ServiceConstants.sessions}/{id}')
-  Future<ProductData> logout(@Path("id") String id,@Query('devise_id') String devise_id);
+  Future<ProductData> logout(
+      @Path("id") String id, @Query('devise_id') String devise_id);
 }

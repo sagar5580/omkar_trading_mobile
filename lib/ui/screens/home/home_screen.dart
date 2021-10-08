@@ -64,14 +64,16 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Expanded(
                 child: SearchTextField(
-                  controller: model?.searchController,
-                  textAlign: TextAlign.start,
-                  autofocus: false,
-                  hintText: AppString.search,
-                  topContentPadding: 10,
-                  leftContentPadding: 10,
-                  rightContentPadding: 10,
-                ),
+                    controller: model?.searchController,
+                    textAlign: TextAlign.start,
+                    autofocus: false,
+                    hintText: AppString.search,
+                    topContentPadding: 10,
+                    leftContentPadding: 10,
+                    rightContentPadding: 10,
+                    onChanged: (value) {
+                      model?.onSearchTextChanged(value);
+                    }),
               ),
               Container(
                 margin: EdgeInsets.only(top: 5, right: 10),
@@ -90,18 +92,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           Expanded(
-            child:
-                /*model?.searchProductList?.length != 0 || model!.searchController!.text.isNotEmpty ?
-            IntrinsicGridView.vertical(
-                padding: EdgeInsets.only(top: 16, bottom: 12),
-                verticalSpace: 10,
-                horizontalSpace: 10,
-                children: [
-                  for (var product in model?.searchProductList ?? [])
-                    _buildWidget(product),
-                ])
-                :*/
-                model?.getProductList!.length == 0
+            child: model?.searchProductList?.length != 0 ||
+                    model?.searchController != null &&
+                        model!.searchController!.text.isNotEmpty
+                ? IntrinsicGridView.vertical(
+                    padding: EdgeInsets.only(top: 16, bottom: 12),
+                    verticalSpace: 10,
+                    horizontalSpace: 10,
+                    children: [
+                        for (var product in model?.searchProductList ?? [])
+                          _buildWidget(product),
+                      ])
+                : model?.getProductList!.length == 0
                     ? Center(
                         child: CircularProgressIndicator(
                           color: AppColors.primary_color,

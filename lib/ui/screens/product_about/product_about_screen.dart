@@ -186,6 +186,7 @@ class _ProductAboutScreenState extends State<ProductAboutScreen> {
                                   children: [
                                     RatingBarWidget(
                                       itemSize: 20.0,
+                                      rating: 3.0,
                                     ),
                                     SizedBox(
                                       height: 5,
@@ -334,56 +335,73 @@ class _ProductAboutScreenState extends State<ProductAboutScreen> {
                 )
               ],
             ),
-            AnimatedSizeAndFade(
-              child: selectReview == true
-                  ? Card(
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(15.0))),
-                      child: Padding(
-                        padding: const EdgeInsets.all(25.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: model?.productData!.testimonials!.length,
+              itemBuilder: (context, index) {
+                return AnimatedSizeAndFade(
+                  child: selectReview == true
+                      ? Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0))),
+                          child: Padding(
+                            padding: const EdgeInsets.all(25.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                networkImage(""),
-                                Expanded(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "John Smith",
-                                        style: Utils.boldTextStyle(
-                                            color: AppColors.black,
-                                            fontSize: AppDimens.large_font),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    networkImage(model?.productData!
+                                            .testimonials?[index].imageUrl ??
+                                        ""),
+                                    Expanded(
+                                        child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            model
+                                                    ?.productData!
+                                                    .testimonials?[index]
+                                                    .name ??
+                                                "",
+                                            style: Utils.boldTextStyle(
+                                                color: AppColors.black,
+                                                fontSize: AppDimens.large_font),
+                                          ),
+                                          RatingBarWidget(
+                                            itemSize: 15.0,
+                                            rating: model?.productData!
+                                                .testimonials?[index].rate
+                                                ?.toDouble(),
+                                          ),
+                                        ],
                                       ),
-                                      RatingBarWidget(
-                                        itemSize: 15.0,
-                                      ),
-                                    ],
-                                  ),
-                                ))
+                                    ))
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 60),
+                                  child: Text(
+                                      model?.productData!.description ?? "",
+                                      style: Utils.boldTextStyle(
+                                          height: 1.3,
+                                          color: AppColors.gray,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: AppDimens.medium_font)),
+                                ),
                               ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 60),
-                              child: Text(AppString.decrip,
-                                  style: Utils.boldTextStyle(
-                                      height: 1.3,
-                                      color: AppColors.gray,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: AppDimens.medium_font)),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : Container(),
+                          ),
+                        )
+                      : Container(),
+                );
+              },
             ),
           ],
         ),

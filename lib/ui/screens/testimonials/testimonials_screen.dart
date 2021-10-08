@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:omkar_trading/code/constants/app_string.dart';
 import 'package:omkar_trading/code/constants/color_constant.dart';
 import 'package:omkar_trading/code/constants/image_assets.dart';
@@ -62,6 +63,9 @@ class _TestimonialsScreenState extends State<TestimonialsScreen> {
                 topContentPadding: 10,
                 leftContentPadding: 10,
                 rightContentPadding: 10,
+                onChanged: (value) {
+                  model?.onSearchTextChanged(value);
+                },
               ),
             ),
             Container(
@@ -84,22 +88,46 @@ class _TestimonialsScreenState extends State<TestimonialsScreen> {
           height: 10,
         ),
         Expanded(
-          child: model?.getTestimonialsList!.length == 0
-              ? Center(
-                  child: CircularProgressIndicator(
-                    color: AppColors.primary_color,
-                  ),
-                )
-              : ListView.builder(
+          child: model?.getSearchTestimonialsList?.length != 0 ||
+                  model?.searchController != null &&
+                      model!.searchController!.text.isNotEmpty
+              ? ListView.builder(
                   shrinkWrap: true,
-                  itemCount: model?.getTestimonialsList?.length,
+                  itemCount: model?.getSearchTestimonialsList?.length,
                   itemBuilder: (context, index) {
                     TestimonialsData models =
-                        model!.getTestimonialsList![index];
+                        model!.getSearchTestimonialsList![index];
                     return TestimonialsListItem(
                       testimonialsData: models,
                     );
-                  }),
+                  })
+              : model?.getTestimonialsList!.length == 0
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.primary_color,
+                      ),
+                    )
+                  : AnimationLimiter(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: model?.getTestimonialsList?.length,
+                          itemBuilder: (context, index) {
+                            TestimonialsData models =
+                                model!.getTestimonialsList![index];
+                            return AnimationConfiguration.staggeredList(
+                              position: index,
+                              duration: const Duration(milliseconds: 375),
+                              child: SlideAnimation(
+                                verticalOffset: 50.0,
+                                child: FadeInAnimation(
+                                  child: TestimonialsListItem(
+                                    testimonialsData: models,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
         ),
       ],
     );

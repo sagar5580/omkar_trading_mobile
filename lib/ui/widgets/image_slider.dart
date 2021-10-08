@@ -31,17 +31,18 @@ class _ImageSliderState extends State<ImageSlider> {
             },
             itemBuilder: (context, index) {
               return CachedNetworkImage(
-                imageUrl: ServiceConstants.productionURL + widget.imageUrl![index],
+                imageUrl:
+                    ServiceConstants.productionURL + widget.imageUrl![index],
                 height: 100.0,
                 width: 100.0,
                 fit: BoxFit.fitWidth,
                 progressIndicatorBuilder: (context, url, downloadProgress) =>
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Center(
-                          child: CircularProgressIndicator(
-                              value: downloadProgress.progress)),
-                    ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                      child: CircularProgressIndicator(
+                          value: downloadProgress.progress)),
+                ),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               );
             },

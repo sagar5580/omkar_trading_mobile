@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:omkar_trading/code/constants/app_string.dart';
 import 'package:omkar_trading/code/constants/color_constant.dart';
 import 'package:omkar_trading/code/constants/image_assets.dart';
@@ -63,13 +64,22 @@ class _ComplainScreenState extends State<ComplainScreen> {
                     color: AppColors.primary_color,
                   ),
                 )
-              : ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: model!.getComplainsList!.length,
-                  itemBuilder: (context, index) {
-                    ComplainsData models = model!.getComplainsList![index];
-                    return ComplainListItem(model: models);
-                  },
+              : AnimationLimiter(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: model!.getComplainsList!.length,
+                    itemBuilder: (context, index) {
+                      ComplainsData models = model!.getComplainsList![index];
+                      return AnimationConfiguration.staggeredList(
+                        position: index,
+                        duration: const Duration(milliseconds: 375),
+                        child: SlideAnimation(
+                          verticalOffset: 50.0,
+                          child: ComplainListItem(model: models),
+                        ),
+                      );
+                    },
+                  ),
                 ),
         )
       ],

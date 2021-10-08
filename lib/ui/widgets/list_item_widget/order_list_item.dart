@@ -74,9 +74,6 @@ class _MyOrderListItemState extends State<MyOrderListItem> {
                     color: AppColors.light_gray,
                   ),
                 ),
-                SizedBox(
-                  height: 15,
-                ),
                 Text(
                   widget.model?.price ?? "",
                   style: Utils.boldTextStyle(

@@ -65,12 +65,6 @@ class _MessageTextFieldState extends State<MessageTextField> {
           ),
         ),
         Container(
-          // height: Utils.width(context, 40),
-          // decoration: BoxDecoration(
-          //   border: Border.all(color: AppColors.bright_gray, width: 1),
-          //   borderRadius: BorderRadius.circular(15),
-          //   color: AppColors.white,
-          // ),
           child: TextFormField(
             autofocus: widget.autofocus,
             autovalidateMode: AutovalidateMode.onUserInteraction,

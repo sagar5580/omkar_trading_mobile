@@ -7,7 +7,6 @@ import 'code/utils/connectivity_helper.dart';
 import 'code/utils/locator.dart';
 import 'code/view_model/network_view_model.dart';
 
-
 List<SingleChildWidget> providers = [
   ...uiConsumableProviders,
 ];

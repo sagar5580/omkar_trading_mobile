@@ -13,7 +13,7 @@ class SubmitButton extends StatefulWidget {
 class _SubmitButtonState extends State<SubmitButton> {
   @override
   Widget build(BuildContext context) {
-    return  Center(
+    return Center(
       child: Container(
         width: Utils.width(context, 25),
         height: Utils.width(context, 10),

@@ -35,7 +35,7 @@ class _EarningListItemState extends State<EarningListItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Ref: ${widget.model?.refer?.name?? ""}",
+                      "Ref: ${widget.model?.refer?.name ?? ""}",
                       style: Utils.boldTextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: AppDimens.medium_font),
@@ -44,7 +44,7 @@ class _EarningListItemState extends State<EarningListItem> {
                       height: 5,
                     ),
                     Text(
-                      "ID: ${widget.model?.id?? ""}",
+                      "ID: ${widget.model?.id ?? ""}",
                       style: Utils.boldTextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: AppDimens.default_font,
@@ -52,12 +52,6 @@ class _EarningListItemState extends State<EarningListItem> {
                     ),
                   ],
                 ),
-                // Text(
-                //   widget.model?.address ?? "",
-                //   style: Utils.boldTextStyle(
-                //       fontWeight: FontWeight.w400,
-                //       fontSize: AppDimens.medium_font,color: AppColors.light_gray),
-                // ),
               ],
             ),
             SizedBox(
@@ -70,7 +64,7 @@ class _EarningListItemState extends State<EarningListItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Product: ${widget.model?.product?.name?? ""}",
+                      "Product: ${widget.model?.product?.name ?? ""}",
                       style: Utils.boldTextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: AppDimens.medium_font),
@@ -89,20 +83,12 @@ class _EarningListItemState extends State<EarningListItem> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    // Text(
-                    //   widget.model?.product?. ?? "",
-                    //   style: Utils.boldTextStyle(
-                    //       fontWeight: FontWeight.w500,
-                    //       fontSize: AppDimens.medium_font),
-                    // ),
-                    // SizedBox(
-                    //   height: 10,
-                    // ),
                     Text(
                       "${widget.model!.referAmount.toString()} /-",
                       style: Utils.boldTextStyle(
                           fontWeight: FontWeight.w500,
-                          fontSize: AppDimens.medium_font,color: AppColors.green),
+                          fontSize: AppDimens.medium_font,
+                          color: AppColors.green),
                     ),
                   ],
                 ),

@@ -62,6 +62,7 @@ class ProductListItem extends StatelessWidget {
           ),
           RatingBarWidget(
             itemSize: 20.0,
+            rating: 3.0,
           ),
           SizedBox(
             height: 8,

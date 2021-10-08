@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:omkar_trading/code/api_service/api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:omkar_trading/code/constants/service_constants.dart';
@@ -139,7 +137,7 @@ class APIRepository {
     });
   }
 
-  Future<ProductData> userLogout(String id,String devise_id) async {
+  Future<ProductData> userLogout(String id, String devise_id) async {
     Dio dio = getDio();
     dio.interceptors.add(InterceptorsWrapper(
       onResponse: (e, handler) {
@@ -148,7 +146,7 @@ class APIRepository {
     ));
     final APIService _apiService =
         APIService(dio, baseUrl: ServiceConstants.baseURL);
-    return await _apiService.logout(id,devise_id).catchError((onError) {
+    return await _apiService.logout(id, devise_id).catchError((onError) {
       throw onError;
     });
   }

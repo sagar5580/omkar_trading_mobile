@@ -118,7 +118,6 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                   borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide(color: widget.brColor!, width: 1),
                 ),
-
                 contentPadding: EdgeInsets.fromLTRB(
                   widget.leftContentPadding,
                   widget.topContentPadding,

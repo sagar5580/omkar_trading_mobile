@@ -197,7 +197,8 @@ class _MyAppState extends State<MyApp> {
       return iosDeviceInfo.identifierForVendor; // unique ID on iOS
     } else {
       var androidDeviceInfo = await deviceInfo.androidInfo;
-      Preferences.setString(PreferenceKeys.deviceId, androidDeviceInfo.androidId.toString());
+      Preferences.setString(
+          PreferenceKeys.deviceId, androidDeviceInfo.androidId.toString());
       print("androidDeviceInfo ${androidDeviceInfo.androidId.toString()}");
       return androidDeviceInfo.androidId; // unique ID on Android
     }

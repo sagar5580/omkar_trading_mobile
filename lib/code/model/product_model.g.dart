@@ -11,12 +11,17 @@ ProductResponse _$ProductResponseFromJson(Map<String, dynamic> json) {
     data: (json['data'] as List<dynamic>?)
         ?.map((e) => ProductData.fromJson(e as Map<String, dynamic>))
         .toList(),
+    paginationResponse: json['pagination'] == null
+        ? null
+        : PaginationResponse.fromJson(
+            json['pagination'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$ProductResponseToJson(ProductResponse instance) =>
     <String, dynamic>{
       'data': instance.data,
+      'pagination': instance.paginationResponse,
     };
 
 ProductData _$ProductDataFromJson(Map<String, dynamic> json) {

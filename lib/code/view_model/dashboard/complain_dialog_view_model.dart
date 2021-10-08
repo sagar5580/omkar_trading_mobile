@@ -16,7 +16,6 @@ class ComplainsDialogViewModel extends BaseModel {
 
   final ImagePicker _picker = ImagePicker();
   List<MultipartFile> imageList = [];
-  XFile? _imageFile;
   dynamic _pickImageError;
 
   List<File> imageFileList = [];

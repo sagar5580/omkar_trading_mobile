@@ -33,14 +33,6 @@ class MembershipViewModel extends BaseModel {
       Preferences.setString(PreferenceKeys.name, userLoginResponse.name ?? "");
       Preferences.setInt(
           PreferenceKeys.refer_amount, userLoginResponse.refer_amount ?? 0);
-
-      print("fcmToken ${Preferences.getString(
-        PreferenceKeys.fcmToken,
-      )}");
-      print("deviceId ${Preferences.getString(
-        PreferenceKeys.deviceId,
-      )}");
-
       if (fcmTokan?.isEmpty ?? true) {
         if (deviceId?.isEmpty ?? true) {
           await getId();
@@ -67,12 +59,6 @@ class MembershipViewModel extends BaseModel {
 
   Future<void> saveUserDives() async {
     state = ViewState.Busy;
-    print("fcmToken //////${Preferences.getString(
-      PreferenceKeys.fcmToken,
-    )}");
-    print("deviceId/////// ${Preferences.getString(
-      PreferenceKeys.deviceId,
-    )}");
     NotificationRequest notificationRequest = NotificationRequest(
       fcm_key: Preferences.getString(PreferenceKeys.fcmToken),
       os: "A",
@@ -82,7 +68,6 @@ class MembershipViewModel extends BaseModel {
     try {
       SaveUserDeviseResponse userDeviseResponse =
           await apiRepository.notificationRequest(notificationRequest);
-      print("status -> ${userDeviseResponse.status}");
     } catch (error) {
       state = ViewState.Idle;
       switch (error.runtimeType) {
