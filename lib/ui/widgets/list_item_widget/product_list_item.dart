@@ -53,24 +53,24 @@ class ProductListItem extends StatelessWidget {
             height: 15,
           ),
           Text(
-            price!,
+            "₹ ${price ?? ""}",
             style: Utils.boldTextStyle(
                 color: AppColors.black, fontSize: AppDimens.large_font),
           ),
-          SizedBox(
-            height: 15,
-          ),
-          RatingBarWidget(
-            itemSize: 20.0,
-            rating: 3.0,
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Text(
-            "(235 total)",
-            style: Utils.regularTextStyle(fontSize: AppDimens.default_font),
-          ),
+          // SizedBox(
+          //   height: 15,
+          // ),
+          // RatingBarWidget(
+          //   itemSize: 20.0,
+          //   rating: 3.0,
+          // ),
+          // SizedBox(
+          //   height: 8,
+          // ),
+          // Text(
+          //   "(235 total)",
+          //   style: Utils.regularTextStyle(fontSize: AppDimens.default_font),
+          // ),
         ],
       ),
     );

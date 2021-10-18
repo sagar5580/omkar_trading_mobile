@@ -17,55 +17,57 @@ class CommonAppBar extends StatefulWidget {
 class _CommonAppBarState extends State<CommonAppBar> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Image.asset(
-            ImageAssets.ic_arrow_back,
-            height: 25,
-            width: 25,
-          ),
-        ),
-        Expanded(
-          child: Center(
+    return Padding(
+      padding: const EdgeInsets.only(left: 10,right: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // IconButton(
+          //   onPressed: () {
+          //     Navigator.pop(context);
+          //   },
+          //   icon: Image.asset(
+          //     ImageAssets.ic_arrow_back,
+          //     height: 25,
+          //     width: 25,
+          //   ),
+          // ),
+          Center(
             child: Text(
               widget.title!,
               style: Utils.boldTextStyleHeader(fontSize: 25.0),
             ),
           ),
-        ),
-        /* widget.textValue != ""
-            ? Container(
-                margin: EdgeInsets.only(right: 10),
-                height: Utils.width(context, 8.0),
-                width: Utils.width(context, 20.0),
-                decoration: BoxDecoration(
-                  color: AppColors.primary_color,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20.0),
+          /* widget.textValue != ""
+              ? Container(
+                  margin: EdgeInsets.only(right: 10),
+                  height: Utils.width(context, 8.0),
+                  width: Utils.width(context, 20.0),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary_color,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20.0),
+                    ),
                   ),
-                ),
-                child: Center(
-                  child: Text(
-                    widget.textValue ?? "",
-                    maxLines: 1,
-                    style: Utils.mediumTextStyle(),
+                  child: Center(
+                    child: Text(
+                      widget.textValue ?? "",
+                      maxLines: 1,
+                      style: Utils.mediumTextStyle(),
+                    ),
                   ),
-                ),
-              )
-            :*/
-        IconButton(
-          onPressed: widget.onPressed!,
-          icon: Image.asset(
-            widget.rightIcon!,
-            height: 35,
-            width: 35,
+                )
+              :*/
+          IconButton(
+            onPressed: widget.onPressed!,
+            icon: Image.asset(
+              widget.rightIcon!,
+              height: 35,
+              width: 35,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -4,6 +4,8 @@ import 'package:omkar_trading/code/constants/app_string.dart';
 import 'package:omkar_trading/code/constants/color_constant.dart';
 import 'package:omkar_trading/code/constants/image_assets.dart';
 import 'package:omkar_trading/code/model/complains_model.dart';
+import 'package:omkar_trading/code/utils/app_dimens.dart';
+import 'package:omkar_trading/code/utils/utils.dart';
 import 'package:omkar_trading/code/view_model/dashboard/complains_tab_view_model.dart';
 import 'package:omkar_trading/ui/screens/base_view.dart';
 import 'package:omkar_trading/ui/widgets/app_bar.dart';
@@ -58,29 +60,41 @@ class _ComplainScreenState extends State<ComplainScreen> {
           },
         ),
         Expanded(
-          child: model!.getComplainsList!.length == 0
+          child: model?.isLoading == false
               ? Center(
                   child: CircularProgressIndicator(
                     color: AppColors.primary_color,
                   ),
                 )
-              : AnimationLimiter(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: model!.getComplainsList!.length,
-                    itemBuilder: (context, index) {
-                      ComplainsData models = model!.getComplainsList![index];
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 375),
-                        child: SlideAnimation(
-                          verticalOffset: 50.0,
-                          child: ComplainListItem(model: models),
+              : model!.getComplainsList!.length == 0
+                  ? Center(
+                      child: Text(
+                        "No Data Found",
+                        style:
+                            Utils.boldTextStyle(fontSize: AppDimens.large_font),
+                      ),
+                    )
+                  : RefreshIndicator(
+                      onRefresh: model!.getAllData,
+                      child: AnimationLimiter(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: model!.getComplainsList!.length,
+                          itemBuilder: (context, index) {
+                            ComplainsData models =
+                                model!.getComplainsList![index];
+                            return AnimationConfiguration.staggeredList(
+                              position: index,
+                              duration: const Duration(milliseconds: 375),
+                              child: SlideAnimation(
+                                verticalOffset: 50.0,
+                                child: ComplainListItem(model: models),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      ),
+                    ),
         )
       ],
     );

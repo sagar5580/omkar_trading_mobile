@@ -23,7 +23,7 @@ class _SubmitButtonState extends State<SubmitButton> {
         child: Center(
           child: Text(
             "Submit",
-            style: Utils.regularTextStyle(fontSize: AppDimens.medium_font),
+            style: Utils.boldTextStyle(fontSize: AppDimens.medium_font),
           ),
         ),
       ),

@@ -13,6 +13,7 @@ UserLoginResponse _$UserLoginResponseFromJson(Map<String, dynamic> json) {
   )
     ..id = json['id'] as int?
     ..name = json['name'] as String?
+    ..member_ship_no = json['member_ship_no'] as String?
     ..refer_amount = json['refer_amount'] as int?;
 }
 
@@ -22,5 +23,6 @@ Map<String, dynamic> _$UserLoginResponseToJson(UserLoginResponse instance) =>
       'message': instance.message,
       'id': instance.id,
       'name': instance.name,
+      'member_ship_no': instance.member_ship_no,
       'refer_amount': instance.refer_amount,
     };

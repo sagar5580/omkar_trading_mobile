@@ -7,9 +7,12 @@ import 'package:omkar_trading/code/model/product_model.dart';
 import 'package:omkar_trading/code/routing/routers.dart';
 import 'package:omkar_trading/code/shared_preference/preference_key_constants.dart';
 import 'package:omkar_trading/code/shared_preference/preference_manager.dart';
+import 'package:omkar_trading/code/utils/app_dimens.dart';
+import 'package:omkar_trading/code/utils/utils.dart';
 import 'package:omkar_trading/code/view_model/dashboard/home_tab_view_model.dart';
 import 'package:omkar_trading/ui/screens/base_view.dart';
 import 'package:omkar_trading/ui/widgets/app_bar.dart';
+import 'package:omkar_trading/ui/widgets/filtter_widget.dart';
 import 'package:omkar_trading/ui/widgets/list_item_widget/product_list_item.dart';
 import 'package:omkar_trading/ui/widgets/search_text_field.dart';
 
@@ -55,8 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
               if (Preferences.getBool(PreferenceKeys.isLogin, false)) {
                 Navigator.pushNamed(context, Routes.ProfileScreen);
               } else {
-                Navigator.pushReplacementNamed(
-                    context, Routes.MembershipScreen);
+                Navigator.pushNamed(context, Routes.MembershipScreen);
               }
             },
           ),
@@ -75,48 +77,60 @@ class _HomeScreenState extends State<HomeScreen> {
                       model?.onSearchTextChanged(value);
                     }),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 5, right: 10),
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: AppColors.primary_color,
+              InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return FilterWidget();
+                    },
+                  );
+                },
+                child: Container(
+                  margin: EdgeInsets.only(top: 5, right: 10),
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: AppColors.primary_color,
+                  ),
+                  child: Image.asset(
+                    ImageAssets.ic_filter,
+                    height: 13,
+                    width: 13,
+                  ),
                 ),
-                child: Image.asset(
-                  ImageAssets.ic_filter,
-                  height: 13,
-                  width: 13,
-                ),
-              )
+              ),
             ],
           ),
+
           Expanded(
-            child: model?.searchProductList?.length != 0 ||
-                    model?.searchController != null &&
-                        model!.searchController!.text.isNotEmpty
-                ? IntrinsicGridView.vertical(
-                    padding: EdgeInsets.only(top: 16, bottom: 12),
-                    verticalSpace: 10,
-                    horizontalSpace: 10,
-                    children: [
-                        for (var product in model?.searchProductList ?? [])
-                          _buildWidget(product),
-                      ])
-                : model?.getProductList!.length == 0
+            child: model?.isLoading == false
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.primary_color,
+                    ),
+                  )
+                : model?.searchProductList!.length == 0
                     ? Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.primary_color,
+                        child: Text(
+                          "No Data Found",
+                          style: Utils.boldTextStyle(
+                              fontSize: AppDimens.large_font),
                         ),
                       )
-                    : IntrinsicGridView.vertical(
-                        padding: EdgeInsets.only(top: 16, bottom: 12),
-                        verticalSpace: 10,
-                        horizontalSpace: 10,
-                        children: [
-                            for (var product in model?.getProductList ?? [])
-                              _buildWidget(product),
-                          ]),
+                    : RefreshIndicator(
+                        onRefresh: model!.getAllData,
+                        child: IntrinsicGridView.vertical(
+                            padding: EdgeInsets.only(top: 16, bottom: 12),
+                            verticalSpace: 10,
+                            horizontalSpace: 10,
+                            children: [
+                              for (var product
+                                  in model?.searchProductList ?? [])
+                                _buildWidget(product),
+                            ]),
+                      ),
           ), // IntrinsicGridView.vertical
         ],
       ),
@@ -141,9 +155,9 @@ class _HomeScreenState extends State<HomeScreen> {
               arguments: {"product_list": product});
         },
         child: ProductListItem(
-          imageUrl: product.imageUrl![0],
+          imageUrl: product.imageUrl?.length == 0 ? "" : product.imageUrl?[0],
           name: product.name,
-          price: product.price,
+          price: product.price.toString(),
           description: product.description,
         ),
       ),

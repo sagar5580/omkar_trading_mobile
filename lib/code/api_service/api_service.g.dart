@@ -8,7 +8,7 @@ part of 'api_service.dart';
 
 class _APIService implements APIService {
   _APIService(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'https://5a9b-150-107-232-49.ngrok.io/v1/';
+    baseUrl ??= 'https://www.omkartrading.live/v1/';
   }
 
   final Dio _dio;
@@ -42,6 +42,21 @@ class _APIService implements APIService {
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ProductData.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ProductResponse> getFilterProductList(low, high) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'low': low, r'high': high};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ProductResponse>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, 'products',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ProductResponse.fromJson(_result.data!);
     return value;
   }
 
@@ -137,24 +152,24 @@ class _APIService implements APIService {
   }
 
   @override
-  Future<ProductResponse> getOrderProduct() async {
+  Future<OrderProductModel> getOrderProduct(id) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'id': id};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<ProductResponse>(
+        _setStreamType<OrderProductModel>(
             Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
                 .compose(_dio.options, 'user/order-products',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ProductResponse.fromJson(_result.data!);
+    final value = OrderProductModel.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<EarningResponse> getReferEarning() async {
+  Future<EarningResponse> getReferEarning(id) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'id': id};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<EarningResponse>(
@@ -183,9 +198,9 @@ class _APIService implements APIService {
   }
 
   @override
-  Future<ProductData> logout(id, devise_id) async {
+  Future<ProductData> logout(id) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'devise_id': devise_id};
+    final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ProductData>(Options(

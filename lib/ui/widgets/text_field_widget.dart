@@ -23,10 +23,12 @@ class TextFieldWidget extends StatefulWidget {
   final TextAlign textAlign;
   final ValueChanged<String>? onChanged;
   String? title;
+  int? maxLength;
   Color? bgColor;
   Color? brColor;
   String? prefixIcon;
   TextInputType? textInputType;
+  List<TextInputFormatter>? inputFormatters;
 
   TextFieldWidget(
       {Key? key,
@@ -39,6 +41,7 @@ class TextFieldWidget extends StatefulWidget {
       this.textInputAction = TextInputAction.next,
       this.maxLines = 1,
       this.onPressed,
+      this.maxLength,
       this.bottomContentPadding = 5,
       this.leftContentPadding = 5,
       this.rightContentPadding = 5,
@@ -50,6 +53,7 @@ class TextFieldWidget extends StatefulWidget {
       this.brColor,
       this.prefixIcon,
       this.textInputType,
+      this.inputFormatters,
       this.onChanged})
       : super(key: key);
 
@@ -75,6 +79,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           margin: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 5),
           child: Center(
             child: TextFormField(
+              inputFormatters: widget.inputFormatters,
               autofocus: widget.autofocus,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               controller: widget.controller,
@@ -89,8 +94,10 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               textInputAction: widget.textInputAction,
               onChanged: widget.onChanged,
               onFieldSubmitted: widget.onFieldSubmitted,
+              maxLength: widget.maxLength,
               decoration: InputDecoration(
                 fillColor: widget.bgColor!,
+                counterText: "",
                 filled: true,
                 hintText: widget.hintText,
                 hintStyle: Utils.regularTextStyle(

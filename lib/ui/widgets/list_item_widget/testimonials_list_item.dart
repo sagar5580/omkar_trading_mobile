@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:omkar_trading/code/constants/app_string.dart';
 import 'package:omkar_trading/code/constants/color_constant.dart';
 import 'package:omkar_trading/code/constants/image_assets.dart';
 import 'package:omkar_trading/code/model/testimonials_model.dart';
 import 'package:omkar_trading/code/utils/app_dimens.dart';
 import 'package:omkar_trading/code/utils/utils.dart';
 import 'package:omkar_trading/ui/widgets/common_widgets.dart';
+import 'package:omkar_trading/ui/widgets/rating_bar.dart';
 
 class TestimonialsListItem extends StatefulWidget {
   TestimonialsData? testimonialsData;
@@ -41,11 +41,21 @@ class _TestimonialsListItemState extends State<TestimonialsListItem> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          widget.testimonialsData?.name ?? "",
-                          style: Utils.boldTextStyle(
-                              color: AppColors.black,
-                              fontSize: AppDimens.large_font),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.testimonialsData?.name ?? "",
+                              style: Utils.boldTextStyle(
+                                  color: AppColors.black,
+                                  fontSize: AppDimens.large_font),
+                            ),
+                            RatingBarWidget(
+                              itemSize: 15.0,
+                              rating: widget.testimonialsData?.rate
+                                  ?.toDouble(),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: 10,
@@ -56,16 +66,14 @@ class _TestimonialsListItemState extends State<TestimonialsListItem> {
                               color: AppColors.gray,
                               fontSize: AppDimens.medium_font),
                         ),
-                        SizedBox(
-                          height: 15,
+                        Container(
+                          margin: EdgeInsets.only(top: 15),
+                          child: Text(widget.testimonialsData?.message ?? "",
+                              style: Utils.boldTextStyle(
+                                  height: 1.3,
+                                  color: AppColors.gray,
+                                  fontSize: AppDimens.large_font)),
                         ),
-                        Text(
-                            widget.testimonialsData?.productData?.description ??
-                                "",
-                            style: Utils.boldTextStyle(
-                                height: 1.3,
-                                color: AppColors.gray,
-                                fontSize: AppDimens.large_font)),
                       ],
                     ),
                   ),

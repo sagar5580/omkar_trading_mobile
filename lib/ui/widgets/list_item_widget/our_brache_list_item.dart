@@ -34,6 +34,7 @@ class _OurBranchesListItemState extends State<OurBranchesListItem> {
       child: Padding(
         padding: const EdgeInsets.only(top: 10, bottom: 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             textWidget(
                 ImageAssets.ic_branches,
@@ -57,6 +58,28 @@ class _OurBranchesListItemState extends State<OurBranchesListItem> {
                     fontSize: AppDimens.default_font,
                     height: 1.5),
                 2),
+            Container(
+              margin: EdgeInsets.only(
+                top: 5,
+                left: 65,
+              ),
+              child: Text("City : ${widget.model?.city ?? ""}",
+                  style: Utils.mediumTextStyle(
+                      color: AppColors.black,
+                      fontSize: AppDimens.default_font,
+                      height: 1.5)),
+            ),
+            Container(
+              margin: EdgeInsets.only(
+                top: 5,
+                left: 65,
+              ),
+              child: Text("State : ${widget.model?.state ?? ""}",
+                  style: Utils.mediumTextStyle(
+                      color: AppColors.black,
+                      fontSize: AppDimens.default_font,
+                      height: 1.5)),
+            ),
           ],
         ),
       ),

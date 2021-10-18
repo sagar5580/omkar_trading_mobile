@@ -9,6 +9,7 @@ import 'package:omkar_trading/code/model/testimonials_model.dart';
 import 'package:omkar_trading/code/model/user_login_model.dart';
 import 'package:retrofit/http.dart';
 import 'package:dio/dio.dart';
+import 'package:omkar_trading/code/model/order_product_model.dart';
 
 part 'api_service.g.dart';
 
@@ -21,6 +22,12 @@ abstract class APIService {
 
   @GET('${ServiceConstants.products}/{id}')
   Future<ProductData> getProductShow(@Path("id") String id);
+
+  @GET('${ServiceConstants.products}')
+  Future<ProductResponse> getFilterProductList(
+    @Query("low") int low,
+    @Query("high") int high,
+  );
 
   @GET('${ServiceConstants.testimonals}')
   Future<TestimonialsResponse> getTestimonialsList();
@@ -44,16 +51,19 @@ abstract class APIService {
   Future<UserLoginResponse> login(@Query('member_ship_no') String memberShipNo);
 
   @GET('${ServiceConstants.order_products}')
-  Future<ProductResponse> getOrderProduct();
+  Future<OrderProductModel> getOrderProduct(
+    @Query("id") String id,
+  );
 
   @GET('${ServiceConstants.refer_earnings}')
-  Future<EarningResponse> getReferEarning();
+  Future<EarningResponse> getReferEarning(
+    @Query("id") String id,
+  );
 
   @POST('${ServiceConstants.save_user_devise}')
   Future<SaveUserDeviseResponse> saveUserDevise(
       @Body() NotificationRequest notificationRequest);
 
   @DELETE('${ServiceConstants.sessions}/{id}')
-  Future<ProductData> logout(
-      @Path("id") String id, @Query('devise_id') String devise_id);
+  Future<ProductData> logout(@Path("id") String id);
 }

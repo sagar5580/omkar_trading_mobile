@@ -1,5 +1,6 @@
 class ServiceConstants {
-  static const String productionURL = 'https://5a9b-150-107-232-49.ngrok.io/';
+  static const String productionURL = 'https://www.omkartrading.live/';
+  // static const String productionURL = 'https://bd42-219-91-142-239.ngrok.io/';
 
   static const String pointURL = productionURL;
   static const String version = 'v1/';

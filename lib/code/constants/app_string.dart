@@ -13,7 +13,7 @@ class AppString {
   static const String please_enter_name = "Please Enter Name";
   static const String please_enter_email = "Please Enter Email";
   static const String invalid_email = "Invalid Email";
-  static const String please_enter_phone = "Please Enter Phone";
+  static const String please_enter_phone_no = "Please Enter Phone Number";
   static const String message = "Message";
   static const String my_orders = "My Orders";
   static const String my_earnings = "My Earnings";
@@ -22,10 +22,11 @@ class AppString {
   static const String your_name = "Your Name";
   static const String email = "Email";
   static const String phone = "Phone";
+  static const String inValid_membership_no = "Invalid Membership No";
   static const String our_branches = "Our Branches";
   static const String write_your_message = "Write your message";
   static const String enter_membership_number = "Enter\nMembership\nNumber";
   static const String enter_membership_number_hint = "Enter Membership Number";
-  static const String decrip =
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown.";
+  static const String select_product_rang = 'Select Product Rang';
+  static const String please_enter_membership_no = 'Please Enter Membership No';
 }

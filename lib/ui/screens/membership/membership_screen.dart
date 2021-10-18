@@ -7,7 +7,7 @@ import 'package:omkar_trading/code/utils/app_dimens.dart';
 import 'package:omkar_trading/code/utils/utils.dart';
 import 'package:omkar_trading/code/view_model/membership/membership_view_model.dart';
 import 'package:omkar_trading/ui/screens/base_view.dart';
-import 'package:omkar_trading/ui/widgets/sumit_button.dart';
+import 'package:omkar_trading/ui/widgets/submit_button.dart';
 
 class MembershipScreen extends StatefulWidget {
   @override
@@ -61,7 +61,10 @@ class _MembershipScreenState extends State<MembershipScreen> {
                           fontSize: 35.0, color: AppColors.white, height: 1.2),
                     ),
                   ),
-                  textField(),
+                  Form(
+                    key: model.formKey,
+                    child: textField(),
+                  ),
                 ],
               ),
             ),
@@ -80,58 +83,58 @@ class _MembershipScreenState extends State<MembershipScreen> {
         ),
         Container(
           margin: EdgeInsets.only(top: 5, left: 10, right: 10),
-          height: 60,
-          decoration: BoxDecoration(
-            border:
-                Border.all(color: AppColors.white.withOpacity(0.20), width: 1),
-            borderRadius: BorderRadius.circular(40),
-            color: AppColors.white.withOpacity(0.20),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              controller: model?.numberController,
-              textAlignVertical: TextAlignVertical.center,
-              style: Utils.regularTextStyle(
+          child: TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            controller: model?.numberController,
+            textAlignVertical: TextAlignVertical.center,
+            style: Utils.regularTextStyle(
+              color: AppColors.white,
+              fontSize: AppDimens.medium_font,
+            ),
+            validator: (value) => Utils.validateEmptyText(
+                context, value, AppString.please_enter_membership_no),
+            maxLength: 8,
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              hintText: AppString.enter_membership_number_hint,
+              counterText: "",
+              hintStyle: Utils.regularTextStyle(
                 color: AppColors.white,
-                fontSize: AppDimens.medium_font,
+                fontSize: AppDimens.large_font,
               ),
-              maxLines: 1,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                hintText: AppString.enter_membership_number_hint,
-                hintStyle: Utils.regularTextStyle(
+              prefixIcon: IconButton(
+                onPressed: null,
+                icon: Image.asset(
+                  ImageAssets.ic_person,
+                  height: 20.0,
+                  width: 20.0,
                   color: AppColors.white,
-                  fontSize: AppDimens.large_font,
                 ),
-                prefixIcon: IconButton(
-                  onPressed: null,
-                  icon: Image.asset(
-                    ImageAssets.ic_person,
-                    height: 20.0,
-                    width: 20.0,
-                    color: AppColors.white,
-                  ),
-                ),
-                errorStyle: Utils.regularTextStyle(color: AppColors.red),
-                border: UnderlineInputBorder(
-                  borderSide: BorderSide.none,
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide.none,
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide.none,
-                ),
-                filled: false,
-                // fillColor: AppColors.light_grey,
-                contentPadding: EdgeInsets.fromLTRB(
-                  10,
-                  10,
-                  10,
-                  10,
-                ),
+              ),
+              errorStyle: Utils.regularTextStyle(color: AppColors.red),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(
+                    color: AppColors.white.withOpacity(0.20), width: 1),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(
+                    color: AppColors.white.withOpacity(0.20), width: 1),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide(
+                    color: AppColors.white.withOpacity(0.20), width: 1),
+              ),
+              filled: false,
+              // fillColor: AppColors.light_grey,
+              contentPadding: EdgeInsets.fromLTRB(
+                10,
+                10,
+                10,
+                10,
               ),
             ),
           ),
@@ -141,7 +144,9 @@ class _MembershipScreenState extends State<MembershipScreen> {
         ),
         InkWell(
             onTap: () {
-              model!.userLogin(context);
+              if (model!.formKey.currentState!.validate()) {
+                model!.userLogin(context);
+              }
             },
             child: SubmitButton()),
       ],

@@ -82,73 +82,9 @@ class _ProductAboutScreenState extends State<ProductAboutScreen> {
               : Column(
                   children: [
                     Container(
-                      height: Utils.height(context, 40),
+                      height: Utils.height(context, 53),
                       color: AppColors.secondary_color,
-                      child: Column(
-                        children: [
-                          Container(
-                            height: Utils.width(context, 60),
-                            width: double.infinity,
-                            child: ImageSlider(model?.productData?.imageUrl),
-                          ),
-                          model?.productData?.imageUrl?.length == null
-                              ? Container()
-                              : Container(
-                                  height: Utils.width(context, 20),
-                                  width: double.infinity,
-                                  child: Center(
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount:
-                                          model?.productData?.imageUrl!.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return Container(
-                                          margin: EdgeInsets.only(
-                                              left: 10, right: 10, top: 20),
-                                          height: Utils.width(context, 20),
-                                          width: Utils.width(context, 15),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10.0)),
-                                            child: CachedNetworkImage(
-                                              imageUrl: ServiceConstants
-                                                      .productionURL +
-                                                  model!.productData!
-                                                      .imageUrl![index],
-                                              height: 100.0,
-                                              width: 100.0,
-                                              fit: BoxFit.cover,
-                                              progressIndicatorBuilder:
-                                                  (context, url,
-                                                          downloadProgress) =>
-                                                      Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                            value:
-                                                                downloadProgress
-                                                                    .progress)),
-                                              ),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.error),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                        ],
-                      ),
+                      child: ImageSlider(model?.productData),
                     ),
                     Container(
                       width: double.infinity,
@@ -179,38 +115,38 @@ class _ProductAboutScreenState extends State<ProductAboutScreen> {
                                   model?.productData?.name ?? "",
                                   style: Utils.boldTextStyle(
                                       fontSize: AppDimens.extra_large_font,
-                                      fontWeight: FontWeight.w400),
+                                      fontWeight: FontWeight.w500),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    RatingBarWidget(
-                                      itemSize: 20.0,
-                                      rating: 3.0,
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      "(235 total)",
-                                      style: Utils.regularTextStyle(
-                                        color: AppColors.gray,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                // Column(
+                                //   crossAxisAlignment: CrossAxisAlignment.end,
+                                //   children: [
+                                //     RatingBarWidget(
+                                //       itemSize: 20.0,
+                                //       rating: 3.0,
+                                //     ),
+                                //     SizedBox(
+                                //       height: 5,
+                                //     ),
+                                //     Text(
+                                //       "(235 total)",
+                                //       style: Utils.regularTextStyle(
+                                //         color: AppColors.gray,
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
                               ],
                             ),
-                            Text(
-                              "Color: Black",
-                              style:
-                                  Utils.regularTextStyle(color: AppColors.gray),
-                            ),
+                            // Text(
+                            //   "Color: Black",
+                            //   style:
+                            //       Utils.regularTextStyle(color: AppColors.gray),
+                            // ),
                             SizedBox(
                               height: 20,
                             ),
                             Text(
-                              model?.productData?.price ?? "",
+                              "₹ ${model?.productData?.price.toString() ?? ""}",
                               style: Utils.boldTextStyle(
                                   fontSize: AppDimens.extra_large_font,
                                   fontWeight: FontWeight.w500),
@@ -248,33 +184,34 @@ class _ProductAboutScreenState extends State<ProductAboutScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Text(
-                      AppString.product_description,
-                      style: Utils.boldTextStyle(
-                          fontSize: AppDimens.large_font,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.black),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  select = !select;
+                });
+              },
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        AppString.product_description,
+                        style: Utils.boldTextStyle(
+                            fontSize: AppDimens.large_font,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.black),
+                      ),
                     ),
-                  ),
-                  InkWell(
-                      onTap: () {
-                        setState(() {
-                          select = !select;
-                        });
-                      },
-                      child: Icon(
-                        select
-                            ? Icons.keyboard_arrow_up_rounded
-                            : Icons.keyboard_arrow_down_rounded,
-                        size: 50,
-                        color: AppColors.gray,
-                      ))
-                ],
+                    Icon(
+                      select
+                          ? Icons.keyboard_arrow_up_rounded
+                          : Icons.keyboard_arrow_down_rounded,
+                      size: 50,
+                      color: AppColors.gray,
+                    )
+                  ],
+                ),
               ),
             ),
             AnimatedSizeAndFade(
@@ -307,36 +244,37 @@ class _ProductAboutScreenState extends State<ProductAboutScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    AppString.customer_review,
-                    style: Utils.boldTextStyle(
-                        fontSize: AppDimens.large_font,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.black),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  selectReview = !selectReview;
+                });
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Text(
+                      AppString.customer_review,
+                      style: Utils.boldTextStyle(
+                          fontSize: AppDimens.large_font,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.black),
+                    ),
                   ),
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      selectReview = !selectReview;
-                    });
-                  },
-                  child: Icon(
+                  Icon(
                     selectReview
                         ? Icons.keyboard_arrow_up_rounded
                         : Icons.keyboard_arrow_down_rounded,
                     size: 50,
                     color: AppColors.gray,
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
             ListView.builder(
               shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemCount: model?.productData!.testimonials!.length,
               itemBuilder: (context, index) {
                 return AnimatedSizeAndFade(
@@ -388,7 +326,7 @@ class _ProductAboutScreenState extends State<ProductAboutScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 60),
                                   child: Text(
-                                      model?.productData!.description ?? "",
+                                      model?.productData!.testimonials?[index].message ?? "",
                                       style: Utils.boldTextStyle(
                                           height: 1.3,
                                           color: AppColors.gray,

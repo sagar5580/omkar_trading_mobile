@@ -11,7 +11,7 @@ class ProductResponse {
   @JsonKey(name: "pagination")
   PaginationResponse? paginationResponse;
 
-  ProductResponse({this.data,this.paginationResponse});
+  ProductResponse({this.data, this.paginationResponse});
 
   factory ProductResponse.fromJson(Map<String, dynamic> json) =>
       _$ProductResponseFromJson(json);
@@ -28,7 +28,7 @@ class ProductData {
   @JsonKey(name: "description")
   String? description;
   @JsonKey(name: "price")
-  String? price;
+  int? price;
   @JsonKey(name: "images_url")
   List<String>? imageUrl;
   @JsonKey(name: "testimonals")

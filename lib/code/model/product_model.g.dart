@@ -32,7 +32,7 @@ ProductData _$ProductDataFromJson(Map<String, dynamic> json) {
         ?.map((e) => e as String)
         .toList(),
     description: json['description'] as String?,
-    price: json['price'] as String?,
+    price: json['price'] as int?,
     testimonials: (json['testimonals'] as List<dynamic>?)
         ?.map((e) => TestimonialsData.fromJson(e as Map<String, dynamic>))
         .toList(),

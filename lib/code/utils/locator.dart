@@ -4,6 +4,7 @@ import 'package:omkar_trading/code/utils/navigation_service.dart';
 import 'package:omkar_trading/code/view_model/dashboard/complain_dialog_view_model.dart';
 import 'package:omkar_trading/code/view_model/dashboard/complains_tab_view_model.dart';
 import 'package:omkar_trading/code/view_model/dashboard/contactus_tab_view_model.dart';
+import 'package:omkar_trading/code/view_model/dashboard/dashboard_view_model.dart';
 import 'package:omkar_trading/code/view_model/dashboard/home_tab_view_model.dart';
 import 'package:omkar_trading/code/view_model/dashboard/testimonials_view_model.dart';
 import 'package:omkar_trading/code/view_model/membership/membership_view_model.dart';
@@ -15,6 +16,7 @@ final locator = GetIt.instance;
 
 void setupLocator() {
   locator.registerSingleton<APIRepository>(APIRepository());
+  locator.registerLazySingleton(() => DashboardViewModel());
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => NetworkViewModel());
   locator.registerLazySingleton(() => HomeTabViewModel());

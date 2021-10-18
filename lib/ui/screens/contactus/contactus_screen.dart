@@ -14,7 +14,7 @@ import 'package:omkar_trading/ui/screens/base_view.dart';
 import 'package:omkar_trading/ui/widgets/app_bar.dart';
 import 'package:omkar_trading/ui/widgets/list_item_widget/our_brache_list_item.dart';
 import 'package:omkar_trading/ui/widgets/message_text_field.dart';
-import 'package:omkar_trading/ui/widgets/sumit_button.dart';
+import 'package:omkar_trading/ui/widgets/submit_button.dart';
 import 'package:omkar_trading/ui/widgets/text_field_widget.dart';
 
 class ContactusScreen extends StatefulWidget {
@@ -67,18 +67,17 @@ class _ContactusScreenState extends State<ContactusScreen> {
                 if (Preferences.getBool(PreferenceKeys.isLogin, false)) {
                   Navigator.pushNamed(context, Routes.ProfileScreen);
                 } else {
-                  Navigator.pushReplacementNamed(
-                      context, Routes.MembershipScreen);
+                  Navigator.pushNamed(context, Routes.MembershipScreen);
                 }
               },
             ), //
             TextFieldWidget(
+              textInputType: TextInputType.text,
               hintText: AppString.your_name,
               controller: model?.nameController,
               bgColor: AppColors.white,
               brColor: AppColors.bright_gray,
               title: AppString.your_name,
-              textInputType: TextInputType.text,
               prefixIcon: ImageAssets.ic_person,
               validator: (value) => Utils.validateEmptyText(
                   context, value, AppString.please_enter_name),
@@ -97,19 +96,13 @@ class _ContactusScreenState extends State<ContactusScreen> {
               hintText: AppString.phone,
               controller: model?.phoneController,
               bgColor: AppColors.white,
-              onChanged: (value) {
-                if (value.length >= 10) {
-                  setState(() {
-                    model!.phoneController.text = value;
-                  });
-                }
-              },
+              maxLength: 13,
               brColor: AppColors.bright_gray,
               title: AppString.phone,
-              textInputType: TextInputType.number,
+              textInputType: TextInputType.phone,
               prefixIcon: ImageAssets.ic_call,
               validator: (value) => Utils.validateEmptyText(
-                  context, value, AppString.please_enter_phone),
+                  context, value, AppString.please_enter_phone_no),
             ),
             Container(
               margin: EdgeInsets.only(top: 15, left: 20, right: 20, bottom: 5),
@@ -143,37 +136,38 @@ class _ContactusScreenState extends State<ContactusScreen> {
                     left: 20, right: 20, top: 10, bottom: 5),
                 child: Column(
                   children: [
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            AppString.our_branches,
-                            style: Utils.boldTextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: AppDimens.medium_font),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                toggle = !toggle;
-                              });
-                            },
-                            child: Icon(
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          toggle = !toggle;
+                        });
+                      },
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              AppString.our_branches,
+                              style: Utils.boldTextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: AppDimens.medium_font),
+                            ),
+                            Icon(
                               toggle
                                   ? Icons.keyboard_arrow_up_rounded
                                   : Icons.keyboard_arrow_down_rounded,
                               size: 50,
                               color: AppColors.gray,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     AnimatedSizeAndFade(
                       child: toggle == true
                           ? ListView.builder(
                               shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
                               itemCount: model?.getOurBranchesList?.length,
                               itemBuilder: (context, index) {
                                 OurBranchesData models =

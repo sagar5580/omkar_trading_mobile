@@ -6,14 +6,12 @@ part 'notification_model.g.dart';
 class NotificationRequest {
   @JsonKey(name: "fcm_key")
   String? fcm_key;
-  @JsonKey(name: "id")
-  String? id;
   @JsonKey(name: "os")
   String? os;
   @JsonKey(name: "devise_id")
   String? devise_id;
 
-  NotificationRequest({this.fcm_key, this.id, this.os, this.devise_id});
+  NotificationRequest({this.fcm_key, this.os, this.devise_id});
 
   factory NotificationRequest.fromJson(Map<String, dynamic> json) =>
       _$NotificationRequestFromJson(json);

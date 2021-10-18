@@ -30,12 +30,14 @@ class EarningData {
   @JsonKey(name: "product")
   Product? product;
 
+
   EarningData({
     this.id,
     this.refer,
     this.referPercentage,
     this.referAmount,
     this.product,
+
   });
 
   factory EarningData.fromJson(Map<String, dynamic> json) =>
@@ -53,7 +55,7 @@ class Product {
   @JsonKey(name: "description")
   String? description;
   @JsonKey(name: "price")
-  String? price;
+  int? price;
   @JsonKey(name: "imagesUrl")
   List<String>? imagesUrl;
 
@@ -77,12 +79,14 @@ class Refer {
   int? id;
   @JsonKey(name: "name")
   String? name;
-  @JsonKey(name: "referId")
+  @JsonKey(name: "refer_id")
   int? referId;
   @JsonKey(name: "referEarning")
   dynamic referEarning;
   @JsonKey(name: "referAmount")
   int? referAmount;
+  @JsonKey(name: "membership_no")
+  String? membership_no;
 
   Refer({
     this.id,
@@ -90,6 +94,7 @@ class Refer {
     this.referId,
     this.referEarning,
     this.referAmount,
+    this.membership_no,
   });
 
   factory Refer.fromJson(Map<String, dynamic> json) => _$ReferFromJson(json);

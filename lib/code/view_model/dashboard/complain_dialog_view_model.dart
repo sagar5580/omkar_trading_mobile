@@ -39,12 +39,8 @@ class ComplainsDialogViewModel extends BaseModel {
         state = ViewState.Idle;
       } catch (onError) {
         state = ViewState.Idle;
-        switch (onError.runtimeType) {
-          case DioError:
-            Utils.handleError(onError as DioError);
-            break;
-          default:
-        }
+        Toasts.showToast("Please Select image");
+        print(" complainRequest ${onError}");
       }
       state = ViewState.Idle;
     }

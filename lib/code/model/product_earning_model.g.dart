@@ -47,7 +47,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
     id: json['id'] as int?,
     name: json['name'] as String?,
     description: json['description'] as String?,
-    price: json['price'] as String?,
+    price: json['price'] as int?,
     imagesUrl:
         (json['imagesUrl'] as List<dynamic>?)?.map((e) => e as String).toList(),
   );
@@ -65,16 +65,18 @@ Refer _$ReferFromJson(Map<String, dynamic> json) {
   return Refer(
     id: json['id'] as int?,
     name: json['name'] as String?,
-    referId: json['referId'] as int?,
+    referId: json['refer_id'] as int?,
     referEarning: json['referEarning'],
     referAmount: json['referAmount'] as int?,
+    membership_no: json['membership_no'] as String?,
   );
 }
 
 Map<String, dynamic> _$ReferToJson(Refer instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'referId': instance.referId,
+      'refer_id': instance.referId,
       'referEarning': instance.referEarning,
       'referAmount': instance.referAmount,
+      'membership_no': instance.membership_no,
     };

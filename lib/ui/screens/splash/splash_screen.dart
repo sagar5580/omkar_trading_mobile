@@ -23,7 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void startTimer() => Timer(
         Duration(milliseconds: 2500),
         () {
-          Navigator.pushReplacementNamed(context, Routes.Dashboard);
+          Navigator.pushNamedAndRemoveUntil(
+              context, Routes.Dashboard, (Route<dynamic> route) => false);
         },
       );
 

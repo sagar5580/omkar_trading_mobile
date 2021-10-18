@@ -9,6 +9,8 @@ class TestimonialsTabViewModel extends BaseModel {
 
   TextEditingController? searchController;
 
+  bool isLoading = false;
+
   Future<void> getAllData() async {
     state = ViewState.Busy;
     await getTestimonials();
@@ -17,9 +19,12 @@ class TestimonialsTabViewModel extends BaseModel {
 
   Future<void> getTestimonials() async {
     try {
+      isLoading = false;
       TestimonialsResponse testimonialsResponse =
           await apiRepository.getTestimonialsList();
       getTestimonialsList = testimonialsResponse.data;
+      getSearchTestimonialsList = List.from(getTestimonialsList!);
+      isLoading = true;
     } catch (error) {
       print('getTestimonials: $error');
     }
@@ -27,14 +32,9 @@ class TestimonialsTabViewModel extends BaseModel {
 
   onSearchTextChanged(String text) async {
     state = ViewState.Busy;
-    getSearchTestimonialsList!.clear();
-    if (text.isEmpty) {
-      return;
-    }
-    getTestimonialsList!.forEach((userDetail) {
-      if (userDetail.name!.contains(text))
-        getSearchTestimonialsList!.add(userDetail);
-    });
+    getSearchTestimonialsList = getTestimonialsList!
+        .where((item) => item.name!.toLowerCase().contains(text.toLowerCase()))
+        .toList();
     state = ViewState.Idle;
   }
 }

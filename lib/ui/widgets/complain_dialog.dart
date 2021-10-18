@@ -10,7 +10,7 @@ import 'package:omkar_trading/code/utils/utils.dart';
 import 'package:omkar_trading/code/view_model/dashboard/complain_dialog_view_model.dart';
 import 'package:omkar_trading/ui/screens/base_view.dart';
 import 'package:omkar_trading/ui/widgets/message_text_field.dart';
-import 'package:omkar_trading/ui/widgets/sumit_button.dart';
+import 'package:omkar_trading/ui/widgets/submit_button.dart';
 
 class ComplainDialog extends StatefulWidget {
   const ComplainDialog({Key? key}) : super(key: key);
@@ -63,6 +63,8 @@ class _ComplainDialogState extends State<ComplainDialog> {
                         InkWell(
                           onTap: () {
                             Navigator.pop(context);
+                            model.imageFileList.clear();
+                            model.imageList.clear();
                           },
                           child: Image.asset(
                             ImageAssets.ic_close,
@@ -104,7 +106,7 @@ class _ComplainDialogState extends State<ComplainDialog> {
                                       itemCount: model.imageFileList.length,
                                       itemBuilder: (context, index) {
                                         return imageListItem(
-                                            model.imageFileList[index]);
+                                            model.imageFileList[index], index);
                                       },
                                     ),
                                   ),
@@ -124,7 +126,6 @@ class _ComplainDialogState extends State<ComplainDialog> {
                     SizedBox(
                       height: 10,
                     ),
-                    // DropdwonWidget(),
                     textFormField(),
                     SizedBox(
                       height: 10,
@@ -202,26 +203,53 @@ class _ComplainDialogState extends State<ComplainDialog> {
     );
   }
 
-  imageListItem(File file) {
+  imageListItem(File file, int index) {
     return Padding(
       padding: const EdgeInsets.only(right: 15),
-      child: Container(
-        height: Utils.width(context, 15),
-        width: Utils.width(context, 15),
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-                color: AppColors.primary_color.withOpacity(0.20),
-                blurRadius: 10.0,
-                spreadRadius: 1.0),
-          ],
-          color: AppColors.secondary_color,
-          borderRadius: BorderRadius.all(Radius.circular(15.0)),
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: FileImage(file),
+      child: Stack(
+        children: [
+          Container(
+            height: Utils.width(context, 15),
+            width: Utils.width(context, 15),
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: AppColors.primary_color.withOpacity(0.20),
+                    blurRadius: 10.0,
+                    spreadRadius: 1.0),
+              ],
+              color: AppColors.secondary_color,
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: FileImage(file),
+              ),
+            ),
           ),
-        ),
+          InkWell(
+            onTap: () {
+              setState(() {
+                model!.imageFileList.removeAt(index);
+              });
+            },
+            child: Container(
+              width: Utils.width(context, 15),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  height: 20,
+                  width: 20,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.gray),
+                      // color: AppColors.,
+                      image: DecorationImage(
+                          image: AssetImage(ImageAssets.ic_close)),
+                      shape: BoxShape.circle),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

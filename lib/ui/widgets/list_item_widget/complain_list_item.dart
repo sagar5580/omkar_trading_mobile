@@ -61,7 +61,10 @@ class _ComplainListItemState extends State<ComplainListItem> {
                         text: widget.model?.status,
                         style: Utils.boldTextStyle(
                             fontSize: AppDimens.medium_font,
-                            color: AppColors.red),
+                            color: widget.model?.status == "Cancel"
+                                ? AppColors.red : widget.model?.status == "Done"
+                                ? AppColors.green
+                                : Colors.amber),
                       )
                     ]),
                   ),

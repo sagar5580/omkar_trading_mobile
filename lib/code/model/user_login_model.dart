@@ -12,6 +12,8 @@ class UserLoginResponse {
   int? id;
   @JsonKey(name: "name")
   String? name;
+  @JsonKey(name: "member_ship_no")
+  String? member_ship_no;
   @JsonKey(name: "refer_amount")
   int? refer_amount;
 

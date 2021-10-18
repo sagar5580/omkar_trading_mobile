@@ -8,4 +8,6 @@ class Routes {
   static const String ProductAboutScreen = "product_about";
   static const String ProfileScreen = "profile";
   static const String MembershipScreen = "membership";
+  static const String FullScreenImage = "fullscreenimage";
+  static const String MyHomePage = "homepage";
 }

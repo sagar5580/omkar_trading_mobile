@@ -9,8 +9,7 @@ import 'package:omkar_trading/code/model/product_earning_model.dart';
 import 'package:omkar_trading/code/model/product_model.dart';
 import 'package:omkar_trading/code/model/testimonials_model.dart';
 import 'package:omkar_trading/code/model/user_login_model.dart';
-import 'package:omkar_trading/code/shared_preference/preference_key_constants.dart';
-import 'package:omkar_trading/code/shared_preference/preference_manager.dart';
+import 'package:omkar_trading/code/model/order_product_model.dart';
 
 class APIRepository {
   static Dio getDio() {
@@ -48,6 +47,22 @@ class APIRepository {
     });
   }
 
+  Future<ProductResponse> getFilterProductList(low, high) async {
+    Dio dio = getDio();
+    dio.interceptors.add(InterceptorsWrapper(
+      onResponse: (e, handler) {
+        handler.next(e);
+      },
+    ));
+    final APIService _apiService =
+        APIService(dio, baseUrl: ServiceConstants.baseURL);
+    return await _apiService
+        .getFilterProductList(low, high)
+        .catchError((onError) {
+      throw onError;
+    });
+  }
+
   Future<TestimonialsResponse> getTestimonialsList() async {
     Dio dio = getDio();
     dio.interceptors.add(InterceptorsWrapper(
@@ -72,22 +87,6 @@ class APIRepository {
     final APIService _apiService =
         APIService(dio, baseUrl: ServiceConstants.baseURL);
     return await _apiService.getComplainsList().catchError((onError) {
-      throw onError;
-    });
-  }
-
-  Future<ComplainsData> complainRequest(
-      /*fileList, subject, message*/
-      formData) async {
-    Dio dio = getDio();
-    dio.interceptors.add(InterceptorsWrapper(
-      onResponse: (e, handler) {
-        handler.next(e);
-      },
-    ));
-    final APIService _apiService =
-        APIService(dio, baseUrl: ServiceConstants.baseURL);
-    return await _apiService.complainRequest(formData).catchError((onError) {
       throw onError;
     });
   }
@@ -137,7 +136,7 @@ class APIRepository {
     });
   }
 
-  Future<ProductData> userLogout(String id, String devise_id) async {
+  Future<ProductData> userLogout(String id) async {
     Dio dio = getDio();
     dio.interceptors.add(InterceptorsWrapper(
       onResponse: (e, handler) {
@@ -146,19 +145,13 @@ class APIRepository {
     ));
     final APIService _apiService =
         APIService(dio, baseUrl: ServiceConstants.baseURL);
-    return await _apiService.logout(id, devise_id).catchError((onError) {
+    return await _apiService.logout(id).catchError((onError) {
       throw onError;
     });
   }
 
-  Future<ProductResponse> getOrderProductList() async {
+  Future<ComplainsData> complainRequest(formData) async {
     Dio dio = getDio();
-    String userId = Preferences.getInt(
-      PreferenceKeys.user_id,
-    ).toString();
-    if ((userId != "null" && userId.isNotEmpty)) {
-      dio.options.headers["user_id"] = userId;
-    }
     dio.interceptors.add(InterceptorsWrapper(
       onResponse: (e, handler) {
         handler.next(e);
@@ -166,19 +159,13 @@ class APIRepository {
     ));
     final APIService _apiService =
         APIService(dio, baseUrl: ServiceConstants.baseURL);
-    return await _apiService.getOrderProduct().catchError((onError) {
+    return await _apiService.complainRequest(formData).catchError((onError) {
       throw onError;
     });
   }
 
-  Future<EarningResponse> getReferEarningList() async {
+  Future<OrderProductModel> getOrderProductList(id) async {
     Dio dio = getDio();
-    String userId = Preferences.getInt(
-      PreferenceKeys.user_id,
-    ).toString();
-    if ((userId != "null" && userId.isNotEmpty)) {
-      dio.options.headers["user_id"] = userId;
-    }
     dio.interceptors.add(InterceptorsWrapper(
       onResponse: (e, handler) {
         handler.next(e);
@@ -186,7 +173,21 @@ class APIRepository {
     ));
     final APIService _apiService =
         APIService(dio, baseUrl: ServiceConstants.baseURL);
-    return await _apiService.getReferEarning().catchError((onError) {
+    return await _apiService.getOrderProduct(id).catchError((onError) {
+      throw onError;
+    });
+  }
+
+  Future<EarningResponse> getReferEarningList(id) async {
+    Dio dio = getDio();
+    dio.interceptors.add(InterceptorsWrapper(
+      onResponse: (e, handler) {
+        handler.next(e);
+      },
+    ));
+    final APIService _apiService =
+        APIService(dio, baseUrl: ServiceConstants.baseURL);
+    return await _apiService.getReferEarning(id).catchError((onError) {
       throw onError;
     });
   }

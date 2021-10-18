@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:omkar_trading/code/constants/color_constant.dart';
 import 'package:omkar_trading/code/constants/service_constants.dart';
-import 'package:omkar_trading/code/model/product_model.dart';
+import 'package:omkar_trading/code/model/order_product_model.dart';
 import 'package:omkar_trading/code/utils/app_dimens.dart';
 import 'package:omkar_trading/code/utils/utils.dart';
 
 class MyOrderListItem extends StatefulWidget {
-  ProductData? model;
+  OrderProductData? model;
 
   MyOrderListItem({this.model});
 
@@ -39,8 +39,8 @@ class _MyOrderListItemState extends State<MyOrderListItem> {
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(10.0)),
               child: CachedNetworkImage(
-                imageUrl:
-                    ServiceConstants.productionURL + widget.model!.imageUrl![0],
+                imageUrl: ServiceConstants.productionURL +
+                    widget.model!.productData!.imageUrl![0],
                 height: 100.0,
                 width: 100.0,
                 fit: BoxFit.cover,
@@ -59,7 +59,7 @@ class _MyOrderListItemState extends State<MyOrderListItem> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.model?.name ?? "",
+                  widget.model?.productData?.name ?? "",
                   style: Utils.boldTextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: AppDimens.medium_font),
@@ -68,14 +68,18 @@ class _MyOrderListItemState extends State<MyOrderListItem> {
                   height: 10,
                 ),
                 Text(
-                  widget.model?.description ?? "",
+                  widget.model?.order_date ?? "",
+                  overflow: TextOverflow.ellipsis,
                   style: Utils.regularTextStyle(
                     fontSize: AppDimens.default_font,
                     color: AppColors.light_gray,
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(
-                  widget.model?.price ?? "",
+                  "₹ ${widget.model?.productData?.price.toString() ?? ""}",
                   style: Utils.boldTextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: AppDimens.medium_font),

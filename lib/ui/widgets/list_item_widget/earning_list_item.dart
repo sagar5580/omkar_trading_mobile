@@ -37,14 +37,14 @@ class _EarningListItemState extends State<EarningListItem> {
                     Text(
                       "Ref: ${widget.model?.refer?.name ?? ""}",
                       style: Utils.boldTextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                           fontSize: AppDimens.medium_font),
                     ),
                     SizedBox(
                       height: 5,
                     ),
                     Text(
-                      "ID: ${widget.model?.id ?? ""}",
+                      "ID: ${widget.model?.refer?.membership_no ?? ""}",
                       style: Utils.boldTextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: AppDimens.default_font,
@@ -66,14 +66,14 @@ class _EarningListItemState extends State<EarningListItem> {
                     Text(
                       "Product: ${widget.model?.product?.name ?? ""}",
                       style: Utils.boldTextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                           fontSize: AppDimens.medium_font),
                     ),
                     SizedBox(
                       height: 10,
                     ),
                     Text(
-                      widget.model?.product?.price ?? "",
+                      "₹ ${widget.model?.product?.price.toString() ?? ""}",
                       style: Utils.boldTextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: AppDimens.large_font),
@@ -84,9 +84,9 @@ class _EarningListItemState extends State<EarningListItem> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      "${widget.model!.referAmount.toString()} /-",
+                      "₹ ${widget.model!.referAmount.toString()} /-",
                       style: Utils.boldTextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                           fontSize: AppDimens.medium_font,
                           color: AppColors.green),
                     ),

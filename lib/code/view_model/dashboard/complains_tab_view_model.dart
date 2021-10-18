@@ -7,6 +7,7 @@ class ComplainsTabViewModel extends BaseModel {
   List<ComplainsData>? getComplainsList = [];
 
   TextEditingController? searchController;
+  bool isLoading = false;
 
   Future<void> getAllData() async {
     state = ViewState.Busy;
@@ -16,9 +17,11 @@ class ComplainsTabViewModel extends BaseModel {
 
   Future<void> getComplains() async {
     try {
+      isLoading = false;
       ComplainsResponse complainsResponse =
           await apiRepository.getComplainsList();
       getComplainsList = complainsResponse.data;
+      isLoading = true;
     } catch (error) {
       print('getComplains: $error');
     }

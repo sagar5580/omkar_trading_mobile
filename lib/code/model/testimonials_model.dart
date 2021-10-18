@@ -28,14 +28,16 @@ class TestimonialsData {
   String? imageUrl;
   @JsonKey(name: "product")
   ProductData? productData;
+  @JsonKey(name: "message")
+  String? message;
 
-  TestimonialsData({
-    this.id,
-    this.name,
-    this.rate,
-    this.imageUrl,
-    this.productData,
-  });
+  TestimonialsData(
+      {this.id,
+      this.name,
+      this.rate,
+      this.imageUrl,
+      this.productData,
+      this.message});
 
   factory TestimonialsData.fromJson(Map<String, dynamic> json) =>
       _$TestimonialsDataFromJson(json);

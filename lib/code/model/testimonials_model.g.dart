@@ -29,6 +29,7 @@ TestimonialsData _$TestimonialsDataFromJson(Map<String, dynamic> json) {
     productData: json['product'] == null
         ? null
         : ProductData.fromJson(json['product'] as Map<String, dynamic>),
+    message: json['message'] as String?,
   );
 }
 
@@ -39,4 +40,5 @@ Map<String, dynamic> _$TestimonialsDataToJson(TestimonialsData instance) =>
       'rate': instance.rate,
       'image_url': instance.imageUrl,
       'product': instance.productData,
+      'message': instance.message,
     };

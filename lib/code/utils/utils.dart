@@ -17,6 +17,20 @@ class Utils {
     }
   }
 
+  static String? validateMobileNo(
+      BuildContext context, String? value, String error) {
+    {
+      String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+      RegExp regExp = new RegExp(patttern);
+      if (value!.length == 0) {
+        return 'Please enter mobile number';
+      } else if (!regExp.hasMatch(value)) {
+        return 'Please enter valid mobile number';
+      }
+      return null;
+    }
+  }
+
   static emailValidation(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
       return AppString.please_enter_email;

@@ -4,7 +4,9 @@ import 'package:omkar_trading/code/routing/routers.dart';
 import 'package:omkar_trading/ui/screens/complain/complain_screen.dart';
 import 'package:omkar_trading/ui/screens/contactus/contactus_screen.dart';
 import 'package:omkar_trading/ui/screens/home/home_screen.dart';
+import 'package:omkar_trading/ui/screens/homepage.dart';
 import 'package:omkar_trading/ui/screens/membership/membership_screen.dart';
+import 'package:omkar_trading/ui/screens/product_about/full_screen_image.dart';
 import 'package:omkar_trading/ui/screens/product_about/product_about_screen.dart';
 import 'package:omkar_trading/ui/screens/profile/profile_screen.dart';
 import 'package:omkar_trading/ui/screens/splash/splash_screen.dart';
@@ -45,6 +47,12 @@ class PageRouter {
       case Routes.MembershipScreen:
         return MaterialPageRoute(
             builder: (context) => MembershipScreen(), settings: settings);
+      case Routes.FullScreenImage:
+        return MaterialPageRoute(
+            builder: (context) => FullScreenImage(), settings: settings);
+      case Routes.MyHomePage:
+        return MaterialPageRoute(
+            builder: (context) => MyHomePage(), settings: settings);
       default:
         return MaterialPageRoute(
           builder: (BuildContext context) => Scaffold(

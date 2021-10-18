@@ -4,7 +4,7 @@ import 'package:omkar_trading/code/constants/app_string.dart';
 import 'package:omkar_trading/code/constants/color_constant.dart';
 import 'package:omkar_trading/code/constants/image_assets.dart';
 import 'package:omkar_trading/code/model/product_earning_model.dart';
-import 'package:omkar_trading/code/model/product_model.dart';
+import 'package:omkar_trading/code/model/order_product_model.dart';
 import 'package:omkar_trading/code/shared_preference/preference_key_constants.dart';
 import 'package:omkar_trading/code/shared_preference/preference_manager.dart';
 import 'package:omkar_trading/code/utils/app_dimens.dart';
@@ -111,8 +111,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 8,
                     ),
                     Text(
-                      "ID: ${Preferences.getInt(
-                        PreferenceKeys.user_id,
+                      "ID: ${Preferences.getString(
+                        PreferenceKeys.member_ship_no,
                       )}",
                       style: Utils.regularTextStyle(),
                     )
@@ -132,11 +132,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               child: Center(
                 child: Text(
-                  Preferences.getInt(
-                    PreferenceKeys.refer_amount,
-                  ).toString(),
+                  "₹ ${model?.userLoginResponse?.refer_amount ?? ""}",
                   maxLines: 1,
-                  style: Utils.mediumTextStyle(),
+                  style: Utils.boldTextStyle(fontWeight: FontWeight.w700),
                 ),
               ),
             )
@@ -230,53 +228,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
   orderWidget() {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          model!.getOrderProductList!.length == 0
-              ? Container()
-              : Text(
-                  "${model!.getOrderProductList!.length.toString()} ${"Items"}"
-                  "",
-                  style: Utils.boldTextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: AppDimens.medium_font),
+      child: model?.isLoading == false
+          ? Center(
+              child: CircularProgressIndicator(
+                color: AppColors.primary_color,
+              ),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                model!.getOrderProductList!.length == 0
+                    ? Container()
+                    : Text(
+                        "${model!.getOrderProductList!.length.toString()} ${"Items"}"
+                        "",
+                        style: Utils.boldTextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: AppDimens.medium_font),
+                      ),
+                SizedBox(
+                  height: 10,
                 ),
-          SizedBox(
-            height: 10,
-          ),
-          Expanded(
-            child: model!.getOrderProductList!.length == 0
-                ? Center(
-                    child: CircularProgressIndicator(
-                      color: AppColors.primary_color,
-                    ),
-                  )
-                : AnimationLimiter(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemCount: model!.getOrderProductList!.length,
-                      itemBuilder: (context, index) {
-                        ProductData models = model!.getOrderProductList![index];
-                        return AnimationConfiguration.staggeredList(
-                          position: index,
-                          duration: const Duration(milliseconds: 375),
-                          child: SlideAnimation(
-                            verticalOffset: 50.0,
-                            child: FadeInAnimation(
-                              child: MyOrderListItem(
-                                model: models,
-                              ),
+                Expanded(
+                  child: model!.getOrderProductList!.length == 0
+                      ? Center(
+                          child: Text(
+                            "No Data Found",
+                            style: Utils.boldTextStyle(
+                                fontSize: AppDimens.large_font),
+                          ),
+                        )
+                      : RefreshIndicator(
+                          onRefresh: model!.getAllData,
+                          child: AnimationLimiter(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: model!.getOrderProductList!.length,
+                              itemBuilder: (context, index) {
+                                OrderProductData models =
+                                    model!.getOrderProductList![index];
+                                return AnimationConfiguration.staggeredList(
+                                  position: index,
+                                  duration: const Duration(milliseconds: 375),
+                                  child: SlideAnimation(
+                                    verticalOffset: 50.0,
+                                    child: FadeInAnimation(
+                                      child: MyOrderListItem(
+                                        model: models,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
-                        );
-                      },
-                    ),
-                  ),
-          ),
-        ],
-      ),
+                        ),
+                ),
+              ],
+            ),
     );
   }
 
@@ -285,33 +294,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-          child: model!.getEarningDataList!.length == 0
+          child: model?.isLoadingEarning == false
               ? Center(
                   child: CircularProgressIndicator(
                     color: AppColors.primary_color,
                   ),
                 )
-              : AnimationLimiter(
-                  child: ListView.builder(
-                    physics: ClampingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: model!.getEarningDataList!.length,
-                    itemBuilder: (context, index) {
-                      EarningData models = model!.getEarningDataList![index];
-                      return AnimationConfiguration.staggeredList(
-                        position: index,
-                        duration: const Duration(milliseconds: 375),
-                        child: SlideAnimation(
-                          child: FadeInAnimation(
-                            child: EarningListItem(
-                              model: models,
-                            ),
-                          ),
+              : model!.getEarningDataList!.length == 0
+                  ? Center(
+                      child: Text(
+                        "No Data Found",
+                        style:
+                            Utils.boldTextStyle(fontSize: AppDimens.large_font),
+                      ),
+                    )
+                  : RefreshIndicator(
+                      onRefresh: model!.getAllData,
+                      child: AnimationLimiter(
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: model!.getEarningDataList!.length,
+                          itemBuilder: (context, index) {
+                            EarningData models =
+                                model!.getEarningDataList![index];
+                            return AnimationConfiguration.staggeredList(
+                              position: index,
+                              duration: const Duration(milliseconds: 375),
+                              child: SlideAnimation(
+                                child: FadeInAnimation(
+                                  child: EarningListItem(
+                                    model: models,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      ),
+                    ),
         ),
       ],
     );
