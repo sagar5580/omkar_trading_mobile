@@ -1,22 +1,23 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:omkar_trading/code/enums/viewstate.dart';
 import 'package:omkar_trading/code/model/complains_model.dart';
 import 'package:omkar_trading/code/utils/toasts.dart';
-import 'package:omkar_trading/code/utils/utils.dart';
 import 'package:omkar_trading/code/view_model/base_model.dart';
-import 'package:dio/dio.dart';
 
 class ComplainsDialogViewModel extends BaseModel {
   final formKey = GlobalKey<FormState>();
   final reasonController = TextEditingController();
   final messageController = TextEditingController();
+  final usernameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final memberIdController = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
   List<MultipartFile> imageList = [];
-  dynamic _pickImageError;
 
   List<File> imageFileList = [];
 
@@ -27,6 +28,9 @@ class ComplainsDialogViewModel extends BaseModel {
         var formData = FormData.fromMap({
           "complain[subject]": reasonController.text,
           "complain[message]": messageController.text,
+          "complain[username]": usernameController.text,
+          "complain[phone]": phoneController.text,
+          "complain[membership_no]": memberIdController.text,
           "complain[images][]": imageList,
         });
         ComplainsData complainsData =
@@ -40,7 +44,7 @@ class ComplainsDialogViewModel extends BaseModel {
       } catch (onError) {
         state = ViewState.Idle;
         Toasts.showToast("Please Select image");
-        print(" complainRequest ${onError}");
+        print(" complainRequest $onError");
       }
       state = ViewState.Idle;
     }
@@ -60,7 +64,6 @@ class ComplainsDialogViewModel extends BaseModel {
       });
     } catch (e) {
       state = ViewState.Idle;
-      _pickImageError = e;
     }
     state = ViewState.Idle;
   }

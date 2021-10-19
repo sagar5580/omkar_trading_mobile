@@ -28,6 +28,9 @@ class _ComplainDialogState extends State<ComplainDialog> {
     super.dispose();
     model?.messageController.clear();
     model?.reasonController.clear();
+    model?.usernameController.clear();
+    model?.phoneController.clear();
+    model?.memberIdController.clear();
   }
 
   @override
@@ -137,6 +140,45 @@ class _ComplainDialogState extends State<ComplainDialog> {
                       textInputType: TextInputType.text,
                       validator: (value) => Utils.validateEmptyText(
                           context, value, AppString.please_enter_message),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    MessageTextField(
+                      hintText: AppString.username,
+                      controller: model.usernameController,
+                      title: AppString.username,
+                      textInputType: TextInputType.text,
+                      maxLines: 1,
+                      validator: (value) => Utils.validateEmptyText(
+                          context, value, AppString.please_enter_username),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    MessageTextField(
+                      hintText: AppString.phone,
+                      controller: model.phoneController,
+                      title: AppString.phone,
+                      textInputType:
+                          TextInputType.numberWithOptions(signed: false),
+                      maxLines: 1,
+                      validator: (value) => Utils.validateMobileNo(
+                          context, value, AppString.please_enter_phone_no),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    MessageTextField(
+                      hintText: AppString.memberId,
+                      controller: model.memberIdController,
+                      title: AppString.memberId,
+                      maxLines: 1,
+                      textInputAction: TextInputAction.done,
+                      textInputType:
+                          TextInputType.numberWithOptions(signed: false),
+                      validator: (value) => Utils.validateEmptyText(
+                          context, value, AppString.please_enter_memberId),
                     ),
                     SizedBox(
                       height: 30,

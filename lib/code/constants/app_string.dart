@@ -14,6 +14,8 @@ class AppString {
   static const String please_enter_email = "Please Enter Email";
   static const String invalid_email = "Invalid Email";
   static const String please_enter_phone_no = "Please Enter Phone Number";
+  static const String please_enter_username = "Please Enter Username";
+  static const String please_enter_memberId = "Please Enter Member ID";
   static const String message = "Message";
   static const String my_orders = "My Orders";
   static const String my_earnings = "My Earnings";
@@ -22,6 +24,8 @@ class AppString {
   static const String your_name = "Your Name";
   static const String email = "Email";
   static const String phone = "Phone";
+  static const String memberId = "Member ID";
+  static const String username = "Username";
   static const String inValid_membership_no = "Invalid Membership No";
   static const String our_branches = "Our Branches";
   static const String write_your_message = "Write your message";
