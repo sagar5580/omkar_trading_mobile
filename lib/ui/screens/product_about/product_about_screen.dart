@@ -1,10 +1,8 @@
 import 'package:animated_size_and_fade/animated_size_and_fade.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:omkar_trading/code/constants/app_string.dart';
 import 'package:omkar_trading/code/constants/color_constant.dart';
 import 'package:omkar_trading/code/constants/image_assets.dart';
-import 'package:omkar_trading/code/constants/service_constants.dart';
 import 'package:omkar_trading/code/model/product_model.dart';
 import 'package:omkar_trading/code/routing/routers.dart';
 import 'package:omkar_trading/code/shared_preference/preference_key_constants.dart';
@@ -111,11 +109,13 @@ class _ProductAboutScreenState extends State<ProductAboutScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  model?.productData?.name ?? "",
-                                  style: Utils.boldTextStyle(
-                                      fontSize: AppDimens.extra_large_font,
-                                      fontWeight: FontWeight.w500),
+                                Expanded(
+                                  child: Text(
+                                    model?.productData?.name ?? "",
+                                    style: Utils.boldTextStyle(
+                                        fontSize: AppDimens.extra_large_font,
+                                        fontWeight: FontWeight.w500),
+                                  ),
                                 ),
                                 // Column(
                                 //   crossAxisAlignment: CrossAxisAlignment.end,
@@ -326,7 +326,9 @@ class _ProductAboutScreenState extends State<ProductAboutScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 60),
                                   child: Text(
-                                      model?.productData!.testimonials?[index].message ?? "",
+                                      model?.productData!.testimonials?[index]
+                                              .message ??
+                                          "",
                                       style: Utils.boldTextStyle(
                                           height: 1.3,
                                           color: AppColors.gray,

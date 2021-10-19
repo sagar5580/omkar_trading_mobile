@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:omkar_trading/code/enums/viewstate.dart';
+import 'package:omkar_trading/code/model/pagination_model.dart';
 import 'package:omkar_trading/code/model/product_model.dart';
 import 'package:omkar_trading/code/view_model/base_model.dart';
-import 'package:omkar_trading/code/model/pagination_model.dart';
 
 class HomeTabViewModel extends BaseModel {
   List<ProductData>? getProductList = [];
@@ -12,12 +12,11 @@ class HomeTabViewModel extends BaseModel {
   PaginationResponse? paginationResponse;
 
   Future<void> getAllData() async {
-    state = ViewState.Busy;
     await getProduct();
-    state = ViewState.Idle;
   }
 
   Future<void> getProduct() async {
+    state = ViewState.Busy;
     try {
       isLoading = false;
       ProductResponse productResponse = await apiRepository.getProductList();
@@ -26,7 +25,9 @@ class HomeTabViewModel extends BaseModel {
       print("no page${paginationResponse?.total_pages}");
       searchProductList = List.from(getProductList!);
       isLoading = true;
+      state = ViewState.Idle;
     } catch (error) {
+      state = ViewState.Idle;
       print('getProduct: $error');
     }
   }
@@ -48,7 +49,6 @@ class HomeTabViewModel extends BaseModel {
           await apiRepository.getFilterProductList(low, high);
       getProductList = productResponse.data;
       searchProductList = List.from(getProductList!);
-      Navigator.pop(context);
       state = ViewState.Idle;
       isLoading = true;
     } catch (error) {

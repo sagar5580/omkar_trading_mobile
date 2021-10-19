@@ -1,21 +1,42 @@
-import 'package:omkar_trading/code/api_service/api_service.dart';
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
+import 'package:omkar_trading/code/api_service/api_service.dart';
 import 'package:omkar_trading/code/constants/service_constants.dart';
 import 'package:omkar_trading/code/model/complains_model.dart';
 import 'package:omkar_trading/code/model/inquiries_model.dart';
 import 'package:omkar_trading/code/model/notification_model.dart';
+import 'package:omkar_trading/code/model/order_product_model.dart';
 import 'package:omkar_trading/code/model/our_branche_model.dart';
 import 'package:omkar_trading/code/model/product_earning_model.dart';
 import 'package:omkar_trading/code/model/product_model.dart';
 import 'package:omkar_trading/code/model/testimonials_model.dart';
 import 'package:omkar_trading/code/model/user_login_model.dart';
-import 'package:omkar_trading/code/model/order_product_model.dart';
 
 class APIRepository {
   static Dio getDio() {
-    Dio dio = new Dio();
+    Dio dio = Dio();
     dio.options.headers['content-type'] = 'application/json; charset=utf-8';
     dio.options.headers["Accept"] = "application/json";
+    dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
+      print('REQUEST: ${options.method} | ${options.uri}');
+      print('Headers=========');
+      log(options.headers.toString());
+      print('Body===========');
+      log(options.data.toString());
+      return handler.next(options);
+    }, onResponse: (response, handler) {
+      print('RESPONSE===================');
+      print('STATUS========= ${response.statusCode}');
+      log(response.data.toString());
+      return handler.next(response);
+    }, onError: (error, handler) {
+      print('ERROR======================');
+      print('STATUS======== ${error.response?.statusCode}');
+      print(error.response);
+      log(error.response?.data.toString() ?? '');
+      return handler.next(error);
+    }));
     return dio;
   }
 

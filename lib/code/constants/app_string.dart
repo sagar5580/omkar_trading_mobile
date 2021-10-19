@@ -27,6 +27,6 @@ class AppString {
   static const String write_your_message = "Write your message";
   static const String enter_membership_number = "Enter\nMembership\nNumber";
   static const String enter_membership_number_hint = "Enter Membership Number";
-  static const String select_product_rang = 'Select Product Rang';
+  static const String select_product_rang = 'Select Product Range';
   static const String please_enter_membership_no = 'Please Enter Membership No';
 }

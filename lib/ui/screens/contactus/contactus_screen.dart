@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:omkar_trading/code/constants/app_string.dart';
 import 'package:omkar_trading/code/constants/color_constant.dart';
 import 'package:omkar_trading/code/constants/image_assets.dart';
+import 'package:omkar_trading/code/enums/viewstate.dart';
 import 'package:omkar_trading/code/model/our_branche_model.dart';
 import 'package:omkar_trading/code/routing/routers.dart';
 import 'package:omkar_trading/code/shared_preference/preference_key_constants.dart';
@@ -41,18 +42,26 @@ class _ContactusScreenState extends State<ContactusScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<ContactusTabViewModel>(onModelReady: (model) {
-      this.model = model;
-      model.getAllData();
-    }, builder: (context, model, child) {
-      return Scaffold(
-        backgroundColor: AppColors.secondary_color,
-        body: SafeArea(child: mainLayout()),
-      );
-    });
+    return BaseView<ContactusTabViewModel>(
+      onModelReady: (model) {
+        this.model = model;
+        model.getAllData();
+      },
+      builder: (context, model, child) {
+        return Scaffold(
+          backgroundColor: AppColors.secondary_color,
+          body: AbsorbPointer(
+            absorbing: model.state == ViewState.Busy,
+            child: SafeArea(
+              child: mainLayout(),
+            ),
+          ),
+        );
+      },
+    );
   }
 
-  mainLayout() {
+  Widget mainLayout() {
     return SingleChildScrollView(
       physics: ClampingScrollPhysics(),
       child: Form(
@@ -118,11 +127,14 @@ class _ContactusScreenState extends State<ContactusScreen> {
             SizedBox(
               height: 20,
             ),
-            InkWell(
-                onTap: () {
-                  model?.inquiriesRequest(context);
-                },
-                child: SubmitButton()),
+            model?.state != ViewState.Busy
+                ? InkWell(
+                    onTap: () {
+                      model?.inquiriesRequest(context);
+                    },
+                    child: SubmitButton(),
+                  )
+                : CircularProgressIndicator(),
             Container(
               margin: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(

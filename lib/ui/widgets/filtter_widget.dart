@@ -85,15 +85,30 @@ class _FilterWidgetState extends State<FilterWidget> {
                   ),
                 ],
               ),
-              GestureDetector(
-                onTap: () {
-                  Preferences.setInt(PreferenceKeys.select_value,
-                      _sliderDiscreteValue.toInt());
-                  model.getFilterProduct(
-                      context, 0, _sliderDiscreteValue.toInt());
-                },
-                child: SubmitButton(),
-              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Preferences.setInt(PreferenceKeys.select_value,
+                          _sliderDiscreteValue.toInt());
+                      model.getFilterProduct(
+                          context, 0, _sliderDiscreteValue.toInt());
+                    },
+                    child: SubmitButton(),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      model.getProduct();
+                    },
+                    child: SubmitButton(
+                      label: 'Reset',
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

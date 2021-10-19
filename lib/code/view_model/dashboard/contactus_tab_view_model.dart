@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:omkar_trading/code/enums/viewstate.dart';
 import 'package:omkar_trading/code/model/inquiries_model.dart';
@@ -5,7 +6,6 @@ import 'package:omkar_trading/code/model/our_branche_model.dart';
 import 'package:omkar_trading/code/utils/toasts.dart';
 import 'package:omkar_trading/code/utils/utils.dart';
 import 'package:omkar_trading/code/view_model/base_model.dart';
-import 'package:dio/dio.dart';
 
 class ContactusTabViewModel extends BaseModel {
   List<OurBranchesData>? getOurBranchesList = [];
@@ -14,7 +14,7 @@ class ContactusTabViewModel extends BaseModel {
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
   final messageController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
+  var formKey = GlobalKey<FormState>();
 
   Future<void> getAllData() async {
     state = ViewState.Busy;
@@ -48,6 +48,11 @@ class ContactusTabViewModel extends BaseModel {
             await apiRepository.inquiriesRequest(requestData);
         print("message${inquiriesResponse.message}");
         Toasts.showToast(inquiriesResponse.message);
+        formKey = GlobalKey<FormState>();
+        nameController.text = '';
+        emailController.text = '';
+        phoneController.text = '';
+        messageController.text = '';
         state = ViewState.Idle;
       } catch (onError) {
         state = ViewState.Idle;

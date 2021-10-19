@@ -1,9 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:omkar_trading/code/constants/app_string.dart';
 import 'package:omkar_trading/code/constants/color_constant.dart';
 import 'package:omkar_trading/code/utils/app_dimens.dart';
-import 'package:dio/dio.dart';
 import 'package:omkar_trading/code/utils/app_fonts.dart';
 import 'package:omkar_trading/code/utils/toasts.dart';
 
@@ -119,8 +119,7 @@ class Utils {
       case DioErrorType.response:
         final res = error.response;
         print("Got error : ${res!.statusCode} -> ${res.statusMessage}");
-        // if (json.encode(res.data).contains('message'))
-        //   _errorMessage = res.data['message'];
+        if (res.data['message'] is String) _errorMessage = res.data['message'];
         // else
         //   _errorMessage =
         //       AppLocalizations.instance!.translate('something_went_wrong');

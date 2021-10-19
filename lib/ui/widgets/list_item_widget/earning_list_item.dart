@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:omkar_trading/code/constants/color_constant.dart';
+import 'package:omkar_trading/code/model/product_earning_model.dart';
 import 'package:omkar_trading/code/utils/app_dimens.dart';
 import 'package:omkar_trading/code/utils/utils.dart';
-import 'package:omkar_trading/code/model/product_earning_model.dart';
 
 class EarningListItem extends StatefulWidget {
   EarningData? model;
@@ -60,25 +60,27 @@ class _EarningListItemState extends State<EarningListItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Product: ${widget.model?.product?.name ?? ""}",
-                      style: Utils.boldTextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: AppDimens.medium_font),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "₹ ${widget.model?.product?.price.toString() ?? ""}",
-                      style: Utils.boldTextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: AppDimens.large_font),
-                    ),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Product: ${widget.model?.product?.name ?? ""}",
+                        style: Utils.boldTextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: AppDimens.medium_font),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "₹ ${widget.model?.product?.price.toString() ?? ""}",
+                        style: Utils.boldTextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: AppDimens.large_font),
+                      ),
+                    ],
+                  ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,

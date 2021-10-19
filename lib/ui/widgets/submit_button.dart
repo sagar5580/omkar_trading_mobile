@@ -4,7 +4,9 @@ import 'package:omkar_trading/code/utils/app_dimens.dart';
 import 'package:omkar_trading/code/utils/utils.dart';
 
 class SubmitButton extends StatefulWidget {
-  const SubmitButton({Key? key}) : super(key: key);
+  final String label;
+
+  const SubmitButton({Key? key, this.label = 'Submit'}) : super(key: key);
 
   @override
   _SubmitButtonState createState() => _SubmitButtonState();
@@ -22,7 +24,7 @@ class _SubmitButtonState extends State<SubmitButton> {
             color: AppColors.primary_color),
         child: Center(
           child: Text(
-            "Submit",
+            widget.label,
             style: Utils.boldTextStyle(fontSize: AppDimens.medium_font),
           ),
         ),
