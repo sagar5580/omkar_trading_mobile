@@ -101,6 +101,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pop();
+                      Preferences.setInt(PreferenceKeys.select_value, 0);
                       model.getProduct();
                     },
                     child: SubmitButton(

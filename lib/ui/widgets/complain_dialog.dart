@@ -163,6 +163,7 @@ class _ComplainDialogState extends State<ComplainDialog> {
                       textInputType:
                           TextInputType.numberWithOptions(signed: false),
                       maxLines: 1,
+                      maxLength: 13,
                       validator: (value) => Utils.validateMobileNo(
                           context, value, AppString.please_enter_phone_no),
                     ),
@@ -174,6 +175,7 @@ class _ComplainDialogState extends State<ComplainDialog> {
                       controller: model.memberIdController,
                       title: AppString.memberId,
                       maxLines: 1,
+                      maxLength: 8,
                       textInputAction: TextInputAction.done,
                       textInputType:
                           TextInputType.numberWithOptions(signed: false),

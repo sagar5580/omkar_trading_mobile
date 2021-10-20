@@ -12,6 +12,7 @@ class MessageTextField extends StatefulWidget {
   final ValueChanged<String>? onFieldSubmitted;
   final TextInputAction textInputAction;
   final int maxLines;
+  final int maxLength;
   VoidCallback? onPressed;
   double leftContentPadding;
   double topContentPadding;
@@ -34,6 +35,7 @@ class MessageTextField extends StatefulWidget {
       this.onFieldSubmitted,
       this.textInputAction = TextInputAction.next,
       this.maxLines = 10,
+      this.maxLength = 50,
       this.onPressed,
       this.bottomContentPadding = 15,
       this.leftContentPadding = 15,
@@ -77,6 +79,7 @@ class _MessageTextFieldState extends State<MessageTextField> {
                 fontSize: AppDimens.medium_font,
                 fontWeight: FontWeight.w500),
             maxLines: null,
+            maxLength: widget.maxLength,
             textInputAction: widget.textInputAction,
             onChanged: widget.onChanged,
             onFieldSubmitted: widget.onFieldSubmitted,
@@ -84,6 +87,7 @@ class _MessageTextFieldState extends State<MessageTextField> {
               filled: true,
               fillColor: AppColors.white,
               hintText: widget.hintText,
+              counterText: '',
               hintStyle: Utils.regularTextStyle(
                 color: AppColors.gray,
                 fontSize: AppDimens.default_font,
